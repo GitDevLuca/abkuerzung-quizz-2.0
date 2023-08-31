@@ -1,10 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 80 290 300" style="enable-background:new 0 0 500 500;" xml:space="preserve">
-<style type="text/css">
-    .st0{fill:rgb(218,35,35);}
-</style>
-<g>
-    <polygon class="st0" points="187.5,138.5 124.3,138.5 102.9,196.9 208.8,197  "/>
-    <polygon class="st0" points="83.2,250.8 60.3,313.4 117.9,313.4 126.5,287 184.8,287 193.4,313.4 251.2,313.4 228.5,250.9  "/>
-</g>
-</svg>
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 80 290 300" xml:space="preserve"><style type="text/css">.st0{fill:#da2323}</style><path class="st0" d="M187.5 138.5h-63.2l-21.4 58.4 105.9.1zM83.2 250.8l-22.9 62.6h57.6l8.6-26.4h58.3l8.6 26.4h57.8l-22.7-62.5z"/></svg>
