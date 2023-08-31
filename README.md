@@ -1,1 +1,1 @@
-# abkuerzung-quizz-2.0
+# abkuerzungs-quizz-2.0
