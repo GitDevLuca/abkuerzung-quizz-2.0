@@ -113,6 +113,7 @@ module.exports = function(grunt) {
             src: ['**']
         }
     });
+    
 
     grunt.loadNpmTasks('grunt-terser');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
