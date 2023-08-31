@@ -49,7 +49,7 @@ module.exports = function(grunt) {
         cssmin: {
             dist: {
                 options: {
-                    banner: "/*\n* grrd's Games\n* Copyright (c) 2023 Gerard Tyedmers, grrd@gmx.net\n* Licensed under the MPL-2.0 License\n*/\n"
+                    banner: "/*\n* abkuerzungs-quizz\n* Copyright (c) 2023 abkuerzungs-quizz \n* Licensed under the MPL-2.0 License\n*/\n"
                 },
                 files: {
                     'dist/styles/app.css': ['styles/app.css']
@@ -69,7 +69,18 @@ module.exports = function(grunt) {
                 }]
             }
         },
-      
+        replace: {
+            dist: {
+                options: {
+                    patterns: [
+                        {
+                            match: /\<\!DOCTYPE html\>/g,
+                            replacement: function () {
+                                return "<!DOCTYPE html>\n<!-- \n* abkuerzungs-quizz \n* Copyright (c) 2023 abkuerzungs-quizz \n* Licensed under the MPL-2.0 License\n-->\n";
+                            }
+                        }
+                    ]
+                },
                 files: [
                     {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist/'}
                 ]
