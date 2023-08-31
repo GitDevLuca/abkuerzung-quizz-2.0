@@ -69,18 +69,7 @@ module.exports = function(grunt) {
                 }]
             }
         },
-        replace: {
-            dist: {
-                options: {
-                    patterns: [
-                        {
-                            match: /\<\!DOCTYPE html\>/g,
-                            replacement: function () {
-                                return "<!DOCTYPE html>\n<!-- \n* grrd's Games \n* Copyright (c) 2022 Gerard Tyedmers, grrd@gmx.net \n* Licensed under the MPL-2.0 License\n-->\n";
-                            }
-                        }
-                    ]
-                },
+      
                 files: [
                     {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist/'}
                 ]
