@@ -3,6 +3,7 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        //
         terser: {
             one: {
                 options: {
@@ -13,46 +14,18 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    'dist/scripts/app.js': ['scripts/app.js']
+                    '../dist/scripts/app.js': ['scripts/app.js']
                 }
             }
         },
-        svgmin: {
-            options: {
-                plugins: [
-                    {removeUnknownsAndDefaults: false},
-                    {removeViewBox: false}
-                ]
-            },
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: 'images',
-                    src: ['**/*.svg'],
-                    dest: 'dist/images/'
-                }]
-            }
-        },
-        imagemin: {
-            dynamic: {
-                options: {
-                    optimizationLevel: 3
-                },
-                files: [{
-                    expand: true,
-                    cwd: 'images/',
-                    src: ['**/*.{png,jpg}'],
-                    dest: 'dist/images'
-                }]
-            }
-        },
+
         cssmin: {
             dist: {
                 options: {
-                    banner: "/*\n* abkuerzungs-quizz\n* Copyright (c) 2023 abkuerzungs-quizz \n* Licensed under the MPL-2.0 License\n*/\n"
+                    banner: ""
                 },
                 files: {
-                    'dist/styles/app.css': ['styles/app.css']
+                    '../dist/styles/app.css': ['styles/app.css']
                 }
             }
         },
@@ -65,72 +38,36 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     src: 'index.html',
-                    dest: 'dist'
+                    dest: '../dist'
                 }]
             }
         },
-        replace: {
-            dist: {
-                options: {
-                    patterns: [
-                        {
-                            match: /\<\!DOCTYPE html\>/g,
-                            replacement: function () {
-                                return "<!DOCTYPE html>\n<!-- \n* abkuerzungs-quizz \n* Copyright (c) 2023 abkuerzungs-quizz \n* Licensed under the MPL-2.0 License\n-->\n";
-                            }
-                        }
-                    ]
-                },
-                files: [
-                    {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist/'}
-                ]
-            }
-        },
+
+
         copy: {
+
             main: {
                 files: [
-                    {expand: true, flatten: true, src: ['appmanifest.json'], dest: 'dist/'},
-                    {expand: true, flatten: true, src: ['**.txt'], dest: 'dist/'},
-                    {expand: true, flatten: true, src: ['**.md'], dest: 'dist/'},
-                    {expand: true, flatten: true, src: ['CNAME'], dest: 'dist/'}
-                    // , {
-                    //     expand: true,
-                    //     cwd: 'images/',
-                    //     src: ['**/*.{png,jpg}'],
-                    //     dest: 'dist/images'
-                    // }
+                    {expand: true, flatten: true, src: ['images/*.*'], dest: '../dist/images'},
+
+
                 ]
             }
-        },
-        'gh-pages': {
-            options: {
-                base: 'dist',
-                user: {
-                    name: 'grrd01',
-                    email: 'gtyedmers@gmx.net'
-                }
-            },
-            src: ['**']
         }
     });
-    
 
-    grunt.loadNpmTasks('grunt-terser');
-    grunt.loadNpmTasks('grunt-contrib-imagemin');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-htmlmin');
-    grunt.loadNpmTasks('grunt-replace');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-gh-pages');
 
-    grunt.registerTask('default', [
-        'terser',
-        'svgmin',
-        'imagemin',
-        'cssmin',
-        'htmlmin',
-        'replace',
-        'copy',
-        //'gh-pages'
-    ]);
-};
+
+            grunt.loadNpmTasks('grunt-terser');
+            grunt.loadNpmTasks('grunt-contrib-cssmin');
+            grunt.loadNpmTasks('grunt-contrib-htmlmin');
+
+
+            grunt.registerTask('default', [
+                'terser',
+                'cssmin',
+                'htmlmin',
+                'copy'
+            ]);
+
+}

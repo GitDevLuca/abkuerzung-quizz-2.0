@@ -121,40 +121,40 @@ button, input[type="submit"], input[type="reset"] {
     text-decoration: none;
     text-shadow: 0 0 0 #b23e35;
     transition: opacity 0.1s ease-in-out;
+}
 
-    &:hover {
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ce0100), color-stop(1, #fe1a00));
-        background: -moz-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
-        background: -webkit-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
-        background: -o-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
-        background: -ms-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
-        background: linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ce0100', endColorstr='#fe1a00', GradientType=0);
-        background-color: #ce0100;
-    }
+button:active, input[type="submit"]:active, input[type="reset"]:active {
+    position: relative;
+    top: 1px;
+}
 
-    &:active {
-        position: relative;
-        top: 1px;
-    }
+button:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ce0100), color-stop(1, #fe1a00));
+    background: -moz-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
+    background: -webkit-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
+    background: -o-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
+    background: -ms-linear-gradient(top, #ce0100 5%, #fe1a00 100%);
+    background: linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ce0100', endColorstr='#fe1a00', GradientType=0);
+    background-color: #ce0100;
 }
 
 input[type="submit"]:disabled {
     opacity: 0.3;
     cursor: not-allowed;
+}
 
-    &:hover {
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #fe1a00), color-stop(1, #ce0100));
-        background: -moz-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
-        background: -webkit-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
-        background: -o-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
-        background: -ms-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
-        background: linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
-    }
+input[type="submit"]:hover {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #fe1a00), color-stop(1, #ce0100));
+    background: -moz-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
+    background: -webkit-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
+    background: -o-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
+    background: -ms-linear-gradient(top, #fe1a00 5%, #ce0100 100%);
+    background: linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
+}
 
-    &:active {
-        top: 0;
-    }
+input[type="submit"]:active {
+    top: 0;
 }
 
 input, textarea {
