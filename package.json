@@ -1,7 +1,7 @@
 {
-  "name": "grrds-games",
+  "name": "Quiz",
   "version": "0.1.0",
-  "description": "grrd's Games is a collection of html5 pwa browser games",
+  "description": "Quiz",
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
