@@ -84,8 +84,43 @@ module.exports = function(grunt) {
                 files: [
                     {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist/'}
                 ]
-            }
+            }, 
+            
+            dist2: {
+                options: {
+                    patterns: [
+                        {
+                            match: /http:\/\/localhost:3000\/socket.io\/socket.io.js/g,
+                            replacement: function () {
+                                return "https://grrd.a2hosted.com:49154/socket.io/socket.io.js";
+                            }
+                        }
+                    ]
+                },
+
+
+                files: [
+                    {expand: true, flatten: true, src: ['../dist/index.html'], dest: '../dist/'}
+                ]
+            },
+
+            dist3: {
+                options: {
+                    patterns: [
+                        {
+                            match: /http:\/\/localhost:3000/g,
+                            replacement: function () {
+                                return "https://grrd.a2hosted.com:49154";
+                            }
+                        }
+                    ]
+                },
+                files: [
+                    {expand: true, flatten: true, src: ['../dist/scripts/app.js'], dest: '../dist/scripts/'}
+                ]
+            }         
         },
+        
         copy: {
             main: {
                 files: [
