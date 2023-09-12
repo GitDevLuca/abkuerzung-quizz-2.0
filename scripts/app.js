@@ -29,7 +29,7 @@ const pyroDiv = document.getElementById("div_pyro");
 const lettersToAllow = ["é", "ô", "è", "î", "à", "ï", "ë", "û", "ù", "ò", "ê", "â"];
 
 // Abbreviation array
-const abbreviations = JSON.parse(localStorage.getItem("abbreviations")) || [
+let abbreviations = JSON.parse(localStorage.getItem("abbreviations")) || [
     {
         abbreviation: "AD",
         meaning: "Active Directory",
@@ -320,17 +320,6 @@ const addAndRemoveSection = (sectionToShow, sectionToHide) => {
     sectionToHide.classList.add("hidden");
 };
 
-/** Inputs are emptied
- *  No parameter
- *  No return value
- */
-const quitAddAbbreviation = () => {
-    addAndRemoveSection(startPageSection, addTermSection);
-    inpAbbreviation.value = "";
-    inpDefinition.value = "";
-    inpExplanation.value = "";
-}
-
 /**
  * Selects a new question and adjusts the associated texts.
  * No parameter.
@@ -389,6 +378,18 @@ const checkUserInput = () => {
 
     // The save button is disabled if either an abbreviation is already present in the array or if a field is empty.
     addAbbreviationButton.disabled = isAbbreviationEmpty || isDefinitionEmpty || isExplanationEmpty || isAbbreviationExisting;
+}
+
+/**
+ * Switches to the start page and clears the entries of the new abbreviation
+ * No parameter
+ * No return value
+ */
+const quitAddQuiz = () => {
+    addAndRemoveSection(startPageSection, addTermSection);
+    inpAbbreviation.value = "";
+    inpDefinition.value = "";
+    inpExplanation.value = "";
 }
 
 /**
@@ -491,15 +492,22 @@ addAbbreviationButton.addEventListener("click", () => {
             meaning: newDefinition,
             explanation: newExplanation
         });
+
+        // Sends the new abbreviation to server
+        socket.emit("newAbbrev", newAbbreviation, newDefinition, newExplanation);
+
         // Stores the abbreviations array in the browser's local storage.
-        localStorage.setItem("abbreviations", JSON.stringify(abbreviations))
-        quitAddAbbreviation();
+        localStorage.setItem("abbreviations", JSON.stringify(abbreviations));
+        quitAddQuiz();
     }
 });
 
 addQuizTermButton.addEventListener("click", () => {
     addAndRemoveSection(addTermSection, startPageSection);
     addAbbreviationButton.disabled = true;
+});
+returnToStartButton.addEventListener("click", () => {
+    quitAddQuiz();
 });
 startQuizButton.addEventListener("click", () => {
     addAndRemoveSection(quizSection, startPageSection);
@@ -528,6 +536,21 @@ startPageButton.addEventListener("click", () => {
     score = 0;
     addAndRemoveSection(startPageSection, endPageSection);
 });
+returnToStartButton.addEventListener("click", () => {
+    addAndRemoveSection(startPageSection, addTermSection);
+});
 
 // Set text for introduction paragraph
 introductionParagraph.innerHTML = `Teste dein Wissen von ${abbreviations.length} Abkürzungen mit dem einzigartigen Abkürzungsquiz`;
+
+
+const socket = io("http://localhost:3000");
+
+socket.on("serverAbbreviations", (data) => {
+    if (data && data.length > 0) {
+        // Overwrites the local abbreviations array
+        abbreviations = data;
+        // Overwrites the client localstorage with the array from server
+        localStorage.setItem("abbreviations", JSON.stringify(data));
+    }
+});
