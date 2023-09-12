@@ -74,7 +74,7 @@ module.exports = function(grunt) {
                 options: {
                     patterns: [
                         {
-                            match: /\<\!DOCTYPE html\>/g,
+                            match: /\<\!doctype html\>/g,
                             replacement: function () {
                                 return "<!DOCTYPE html>\n<!-- \n* abkuerzungs-quizz \n* Copyright (c) 2023 abkuerzungs-quizz \n* Licensed under the MPL-2.0 License\n-->\n";
                             }
@@ -97,10 +97,8 @@ module.exports = function(grunt) {
                         }
                     ]
                 },
-
-
                 files: [
-                    {expand: true, flatten: true, src: ['../dist/index.html'], dest: '../dist/'}
+                    {expand: true, flatten: true, src: ['dist/index.html'], dest: '../dist/'}
                 ]
             },
 
@@ -116,7 +114,7 @@ module.exports = function(grunt) {
                     ]
                 },
                 files: [
-                    {expand: true, flatten: true, src: ['../dist/scripts/app.js'], dest: '../dist/scripts/'}
+                    {expand: true, flatten: true, src: ['dist/scripts/app.js'], dest: '../dist/scripts/'}
                 ]
             }
 
@@ -136,16 +134,6 @@ module.exports = function(grunt) {
                     // }
                 ]
             }
-        },
-        'gh-pages': {
-            options: {
-                base: 'dist',
-                user: {
-                    name: 'grrd01',
-                    email: 'gtyedmers@gmx.net'
-                }
-            },
-            src: ['**']
         }
     });
     
@@ -156,7 +144,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-gh-pages');
 
     grunt.registerTask('default', [
         'terser',
@@ -165,7 +152,6 @@ module.exports = function(grunt) {
         'cssmin',
         'htmlmin',
         'replace',
-        'copy',
-        //'gh-pages'
+        'copy'
     ]);
 };
