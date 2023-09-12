@@ -98,7 +98,7 @@ module.exports = function(grunt) {
                     ]
                 },
                 files: [
-                    {expand: true, flatten: true, src: ['dist/index.html'], dest: '../dist/'}
+                    {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist/'}
                 ]
             },
 
@@ -114,7 +114,7 @@ module.exports = function(grunt) {
                     ]
                 },
                 files: [
-                    {expand: true, flatten: true, src: ['dist/scripts/app.js'], dest: '../dist/scripts/'}
+                    {expand: true, flatten: true, src: ['dist/scripts/app.js'], dest: 'dist/scripts/'}
                 ]
             }
 
