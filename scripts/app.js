@@ -28,8 +28,6 @@ const pyroDiv = document.getElementById("div_pyro");
 
 const lettersToAllow = ["é", "ô", "è", "î", "à", "ï", "ë", "û", "ù", "ò", "ê", "â"];
 
-let socket;
-
 // Abbreviation array
 let abbreviations = JSON.parse(localStorage.getItem("abbreviations")) || [
     {
@@ -204,7 +202,7 @@ let abbreviations = JSON.parse(localStorage.getItem("abbreviations")) || [
     },
     {
         abbreviation: "DHTML",
-        meaning: "Dynamic Hypertext Markup Language",
+        meaning: "Dynamic HTML",
         explanation: "Dynamic HTML (DHTML) = Interaktive Webseiten durch Kombination von HTML, CSS & JavaScript. Ermöglicht Echtzeit-Änderungen ohne Seitenneuladung. Animationen, Dynamik und reaktionsschnelle Benutzeroberflächen."
     },
     {
@@ -281,271 +279,6 @@ let abbreviations = JSON.parse(localStorage.getItem("abbreviations")) || [
         abbreviation: "SED",
         meaning: "Self Encrypting Drive",
         explanation: "SED (Self-Encrypting Drive) ist eine Festplatte oder SSD mit integrierter Hardware-Verschlüsselung. Sie schützt automatisch Daten durch Verschlüsselung und erfordert ein Passwort oder Schlüssel zur Entschlüsselung. Dies erhöht die Sicherheit von gespeicherten Daten."
-    },
-    {
-        abbreviation: "HDMI",
-        meaning: "High-Definition Multimedia Interface",
-        explanation: "HDMI bezeichnet eine digitale Multimedia-Schnittstelle, die Audio- und Videosignale über ein einziges Kabel liefern kann. In HDMI ist ein zusammenhängendes Kopierschutz-Konzept (DRM) integriert."
-    },
-    {
-        abbreviation: "WWW",
-        meaning: "World Wide Web",
-        explanation: "Das World Wide Web ist ein über das Internet abrufbares System von elektronischen Hypertext-Dokumenten, sogenannten Webseiten, welche mit HTML beschrieben werden. Sie sind durch Hyperlinks untereinander verknüpft und werden im Internet über die Protokolle HTTP oder HTTPS übertragen."
-    },
-    {
-        abbreviation: "SVG",
-        meaning: "Scalable Vector Graphics",
-        explanation: "SVG ist die vom World Wide Web Consortium (W3C) empfohlene Spezifikation zur Beschreibung zweidimensionaler Vektorgrafiken. SVG, das auf XML basiert, wurde erstmals im September 2001 veröffentlicht."
-    },
-    {
-        abbreviation: "QR-Code",
-        meaning: "Quick Response Code",
-        explanation: "Der QR-Code (englisch Quick Response, „schnelle Antwort“) ist ein zweidimensionaler Code, der von der japanischen Firma Denso Wave im Jahr 1994 entwickelt wurde."
-    },
-    {
-        abbreviation: "TCP",
-        meaning: "Transmission Control Protocol",
-        explanation: "Das Transmission Control Protocol (TCP, englisch für „Übertragungssteuerungsprotokoll“) ist ein Netzwerkprotokoll, das definiert, auf welche Art und Weise Daten zwischen Netzwerkkomponenten ausgetauscht werden sollen. Es ist Teil der Internetprotokollfamilie, der Grundlage des Internets."
-    },
-    {
-        abbreviation: "IP",
-        meaning: "Internet Protocol",
-        explanation: "Das Internet Protocol (IP) ist ein in Computernetzen weit verbreitetes Netzwerkprotokoll und stellt durch seine Funktion die Grundlage des Internets dar. Das IP ist die Implementierung der Internetschicht des TCP/IP-Modells bzw. der Vermittlungsschicht (englisch Network Layer) des OSI-Modells."
-    },
-    {
-        abbreviation: "URL",
-        meaning: "Uniform Resource Locator",
-        explanation: "Ein Uniform Resource Locator (Abk. URL; englisch für „einheitlicher Ressourcenverorter“) identifiziert und lokalisiert eine Ressource, beispielsweise eine Webseite."
-    },
-    {
-        abbreviation: "ROM",
-        meaning: "Read-Only Memory",
-        explanation: "Ein Festwertspeicher oder Nur-Lese-Speicher (englisch read-only memory, ROM) ist ein Datenspeicher, auf dem im normalen Betrieb nur lesend zugegriffen werden kann, nicht schreibend, und der nicht flüchtig ist. Das heißt: Er hält seine Daten auch im stromlosen Zustand."
-    },
-    {
-        abbreviation: "SQL",
-        meaning: "Structured Query Language",
-        explanation: "SQL ist eine Datenbanksprache zur Definition von Datenstrukturen in relationalen Datenbanken sowie zum Bearbeiten (Einfügen, Verändern, Löschen) und Abfragen von darauf basierenden Datenbeständen."
-    },
-    {
-        abbreviation: "HDD",
-        meaning: "Hard Disk Drive",
-        explanation: "Ein Festplattenlaufwerk ist ein magnetisches Speichermedium der Computertechnik, bei welchem Daten auf die Oberfläche rotierender Scheiben (auch englisch „Platter“ genannt) geschrieben werden."
-    },
-    {
-        abbreviation: "RTFM",
-        meaning: "Read the fucking manual",
-        explanation: "Im IT-Bereich gilt es als unhöflich, sich bei Problemlösungen ausschließlich auf die Hilfe anderer zu verlassen. RTFM ist eine Aufforderung, bei einfachen Problemen zunächst selbst zu versuchen, diese zu lösen (eben mit Hilfe von Handbüchern, Dokumentationen etc.), bevor man andere um Rat fragt."
-    },
-    {
-        abbreviation: "LCD",
-        meaning: "Liquid Crystal Display",
-        explanation: "Ein LC-Display ist eine Anzeige, dessen Funktion darauf beruht, dass Flüssigkristalle die Polarisationsrichtung von Licht beeinflussen, wenn ein bestimmtes Maß an elektrischer Spannung angelegt wird."
-    },
-    {
-        abbreviation: "LED",
-        meaning: "Light-Emitting Diode",
-        explanation: "Eine Leuchtdiode ist ein Halbleiter-Bauelement, das Licht ausstrahlt, wenn elektrischer Strom in Durchlassrichtung fließt."
-    },
-    {
-        abbreviation: "NAS",
-        meaning: "Network Attached Storage",
-        explanation: "Network Attached Storage (NAS, englisch für netzgebundener Speicher) bezeichnet einfach zu verwaltende Dateiserver."
-    },
-    {
-        abbreviation: "DDoS",
-        meaning: "Distributed-Denial-of-Service",
-        explanation: "DDoS  ist eine Art Cyberangriff, bei dem versucht wird, eine Website oder Netzwerkressource durch Überflutung mit schädlichem Traffic zu überlasten, sodass sie nicht mehr betrieben werden kann."
-    },
-    {
-        abbreviation: "JS",
-        meaning: "JavaScript",
-        explanation: "JavaScript ist eine Skriptsprache, die ursprünglich 1995 von Netscape für dynamisches HTML in Webbrowsern entwickelt wurde, um Benutzerinteraktionen auszuwerten, Inhalte zu verändern, nachzuladen oder zu generieren und so die Möglichkeiten von HTML zu erweitern."
-    },
-    {
-        abbreviation: "NFC",
-        meaning: "Near Field Communication",
-        explanation: "NFC ist die kontaktlose Datenübertragung, die sich die Radio Frequenz Identification (RFID-) Technologie zu Nutze macht."
-    },
-    {
-        abbreviation: "RFID",
-        meaning: "Radio-Frequency Identification",
-        explanation: "RFID bezeichnet eine Technologie für Sender-Empfänger-Systeme zum automatischen und berührungslosen Identifizieren und Lokalisieren von Objekten und Lebewesen mit Radiowellen."
-    },
-    {
-        abbreviation: "COBOL",
-        meaning: "Common Business Oriented Language",
-        explanation: "COBOL ist eine Programmiersprache, die in der Frühzeit der Computerentwicklung, Ende der 1950er-Jahre, entstand und bis heute von Niels und Mika verwendet wird."
-    },
-    {
-        abbreviation: "CAD",
-        meaning: "Computer-Aided Design",
-        explanation: "CAD bezeichnet die Erstellung von (dreidimensionalen) Designs am Computer. CAD-Software wird u.a. im Umfeld von 3D-Druckern verwendet."
-    },
-    {
-        abbreviation: "CSV",
-        meaning: "Comma-Separated Values",
-        explanation: "Das Dateiformat CSV steht für englisch Comma-separated values und beschreibt den Aufbau einer Textdatei zur Speicherung oder zum Austausch einfach strukturierter Daten."
-    },
-    {
-        abbreviation: "SDK",
-        meaning: "Software Development Kit",
-        explanation: "Ein Software Development Kit (SDK) ist eine Sammlung von Programmierwerkzeugen und Programmbibliotheken, die zur Entwicklung von Software dient."
-    },
-    {
-        abbreviation: "JSON",
-        meaning: "JavaScript Object Notation",
-        explanation: "JSON ist ein kompaktes Datenformat in einer einfach lesbaren Textform für den Datenaustausch zwischen Anwendungen. JSON ist von Programmiersprachen unabhängig. Parser und Generatoren existieren in allen verbreiteten Sprachen."
-    },
-    {
-        abbreviation: "SLA",
-        meaning: "Service-Level-Agreement",
-        explanation: "Ein SLA bezeichnet einen Rahmenvertrag zwischen Auftraggeber und Dienstleister für wiederkehrende (IT-)Dienstleistungen."
-    },
-    {
-        abbreviation: "ASCII",
-        meaning: "American Standard Code for Information Interchange",
-        explanation: "ASCII ist eine 7-Bit-Zeichenkodierung für 128 Zeichen. Sie besteht aus 95 druckbaren und 33 nicht druckbaren Zeichen wie zum Beispiel dem Zeilenvorschub."
-    },
-    {
-        abbreviation: "UTF-8",
-        meaning: "Unicode Transformation Format – 8 Bits",
-        explanation: "UTF-8 ist eine Zeichenkodierung mit variabler Breite, die jedes Zeichen des Unicode-Zeichensatzes darstellen kann. Zur Codierung eines Zeichens können 1 - 4 Bytes verwendet."
-    },
-    {
-        abbreviation: "GIF",
-        meaning: "Graphics Interchange Format",
-        explanation: "GIF ist ein Grafikformat für Bilder mit Farbpalette (Farbpalette mit max. 256 Farben, inkl. einer „Transparenzfarbe“). Es kann mehrere Einzelbilder enthalten, welche als Animation abgespielt werden."
-    },
-    {
-        abbreviation: "GPS",
-        meaning: "Global Positioning System",
-        explanation: "GPA ist ein globales Navigationssatellitensystem zur Positionsbestimmung. Es wurde seit den 1970er-Jahren vom US-Verteidigungsministerium entwickelt."
-    },
-    {
-        abbreviation: "CI/CD",
-        meaning: "Continuous Integration / Continuous Delivery",
-        explanation: "CI/CD beschreibt den Prozess fortlaufenden Zusammenfügens von Komponenten zu einer Anwendung und fortlaufender Auslieferung von neuen Versionen der Anwendung."
-    },
-    {
-        abbreviation: "MMORPG",
-        meaning: "Massively Multiplayer Online Role-Playing Game",
-        explanation: "Ein MMORPG ist ein Computerspiel, das Rollenspiel- und Online-Mehrspielerkomponenten miteinander verbindet. World of Warcraft (WoW) ist das bisher erfolgreichste MMORPG und wurde Anfang 2005 (in den USA Ende 2004) von Blizzard Entertainment veröffentlicht."
-    },
-    {
-        abbreviation: "PPI",
-        meaning: "Pixels per Inch",
-        explanation: "PPI beschreibt die Punktdichte, genannt auch Auflösung, von Displays. Im Druck-Umfeld wird von DPI (Dots per Inch) gesprochen."
-    },
-    {
-        abbreviation: "IPA",
-        meaning: "Individuelle Praktische Arbeit",
-        explanation: "Die IPA ist der Abschluss und das Highlight jeder Informatiker-Lehre."
-    },
-    {
-        abbreviation: "HTML",
-        meaning: "Hypertext Markup Language",
-        explanation: "HTML ist eine textbasierte Auszeichnungssprache zur Strukturierung elektronischer Dokumente wie Texte mit Hyperlinks, Bildern und anderen Inhalten. HTML-Dokumente sind die Grundlage des World Wide Web und werden von Webbrowsern dargestellt. "
-    },
-    {
-        abbreviation: "ICANN",
-        meaning: "Internet Corporation for Assigned Names and Numbers",
-        explanation: "Die Internet Corporation for Assigned Names and Numbers (kurz: ICANN) koordiniert die Vergabe von einmaligen Namen und Adressen im Internet. Dazu gehört die Koordination des Domain Name Systems und die Zuteilung von IP-Adressen."
-    },
-    {
-        abbreviation: "DAU",
-        meaning: "Dümmster anzunehmender User",
-        explanation: "DAU ist ein Ausdruck für Computerbenutzer ohne Grundlagenwissen und Sachverständnis. Der Begriff spielt besonders in der Erstellung benutzertauglicher Hard- und Software (Usability) eine Rolle."
-    },
-    {
-        abbreviation: "CRUD",
-        meaning: "Create, Read, Update, Delete",
-        explanation: "CRUD bezeichnet die vier grundlegenden Operationen persistenter Speichersysteme und Datenbanken."
-    },
-    {
-        abbreviation: "DDL",
-        meaning: "Data Definition Language",
-        explanation: "DDL ist eine Komponente von SQL(Structured Query Language), welche zur Definition von Datenstrukturen verwendet wird, z. B. 'create table'"
-    },
-    {
-        abbreviation: "IBM",
-        meaning: "International Business Machines",
-        explanation: "Die International Business Machines Corporation (IBM) ist ein börsennotiertes US-amerikanisches IT- und Beratungsunternehmen mit Sitz in Armonk im Bundesstaat New York. IBM ist eines der weltweit führenden Unternehmen insbesondere für branchenspezifische Produkte und Dienstleistungen im IT-Bereich sowie Software und Hardware."
-    },
-    {
-        abbreviation: "DBMS",
-        meaning: "Database Management System",
-        explanation: "Das Datenbankmanagementsystem, abgekürzt DBMS, ist neben den eigentlichen Daten der wichtigste Bestandteil einer jeden Datenbank. Es übernimmt die Aufgabe der Organisation und Strukturierung der Daten. Gleichzeitig kontrolliert es lesende und schreibende Zugriffe."
-    },
-    {
-        abbreviation: "ODBC",
-        meaning: "Open Database Connectivity",
-        explanation: "ODBC ist eine standardisierte Datenbankschnittstelle, die SQL als Datenbanksprache verwendet. Sie erlaubt, Anwendung relativ unabhängig vom verwendeten Datenbankmanagementsystem (DBMS) zu entwickeln."
-    },
-    {
-        abbreviation: "API",
-        meaning: "Application Programming Interface",
-        explanation: "Eine API ist ein Programmteil, der von einem Softwaresystem anderen Programmen zur Anbindung zur Verfügung gestellt wird. Zur Bereitstellung solch einer Schnittstelle gehört meist die detaillierte Dokumentation der Schnittstellen-Funktionen mit ihren Parametern."
-    },
-    {
-        abbreviation: "HERMES",
-        meaning: "Handbuch der Elektronischen Rechenzentren des Bundes, eine Methode zur Entwicklung von Systemen",
-        explanation: "HERMES ist ein offener Standard zur Führung und Abwicklung von IT-Projekten, welcher von der Bundesverwaltung der Schweiz entwickelt wird. Es ist seit 1975 im Einsatz."
-    },
-    {
-        abbreviation: "CAPTCHA",
-        meaning: "Completely Automated Public Turing test to tell Computers and Humans Apart",
-        explanation: "CAPTCHAs werden verwendet, um festzustellen, ob ein Mensch oder eine Maschine (Roboter[programm], kurz Bot) an einer Kommunikation beteiligt ist."
-    },
-    {
-        abbreviation: "GPU",
-        meaning: "Graphics Processing Unit",
-        explanation: "Ein Grafikprozessor ist ein auf die Berechnung von Grafiken spezialisierter und optimierter Prozessor für Computer, Spielkonsolen und Smartphones."
-    },
-    {
-        abbreviation: "IoT",
-        meaning: "Internet of Things",
-        explanation: "IoT ist ein Sammelbegriff für Technologien einer globalen Infrastruktur der Informationsgesellschaften, die es ermöglicht, physische und virtuelle Objekte miteinander zu vernetzen und sie durch Informations- und Kommunikationstechniken zusammenarbeiten zu lassen."
-    },
-    {
-        abbreviation: "LTE",
-        meaning: "Long Term Evolution",
-        explanation: "LTE ist eine Bezeichnung für den Mobilfunkstandard der dritten Generation."
-    },
-    {
-        abbreviation: "NLP",
-        meaning: "Natural Language Processing",
-        explanation: "Die Verarbeitung natürlicher Sprache (Natural Language Processing, NLP) ist ein Teilbereich der Artificial Intelligence. Sie soll Computer in die Lage versetzen, menschliche Sprache zu verstehen, zu interpretieren und zu manipulieren."
-    },
-    {
-        abbreviation: "OCR",
-        meaning: "Optical Character Recognition",
-        explanation: "OCR ist eine Technologie zur automatischen Texterkennung, die es ermöglicht, Buchstaben, Wörter und Zahlen in Bilddateien, wie etwa Scans, zu erfassen und diese in bearbeitbare und durchsuchbare Texte umzuwandeln."
-    },
-    {
-        abbreviation: "PIN",
-        meaning: "Personal Identification Number",
-        explanation: "Ein PIN ist ein nur einer oder wenigen Personen bekannter numerischer Code, mit dem diese sich gegenüber einer Maschine authentisieren kann/können."
-    },
-    {
-        abbreviation: "SEO",
-        meaning: "Serch Engine Optimization",
-        explanation: "Unter Suchmaschinenoptimierung (engl. Search Engine Optimization, Abkürzung: SEO) werden alle Maßnahmen technischer und inhaltlicher Natur verstanden, um die Rankings einer Website und damit deren Sichtbarkeit in den Ergebnislisten von Suchmaschinen zu verbessern."
-    },
-    {
-        abbreviation: "SSL",
-        meaning: "Secure Sockets Layer",
-        explanation: "Secure Sockets Layer ist ein Protokoll für Web-Browser und Server, das die Authentifizierung sowie die Verschlüsselung und Entschlüsselung von Daten beim Senden über das Internet ermöglicht."
-    },
-    {
-        abbreviation: "SSO",
-        meaning: "Single Sign-on",
-        explanation: "Single Sign-on (SSO) ist eine Authentifizierungsmethode, die es Benutzern ermöglicht, sich auf sichere Weise bei mehreren Anwendungen und Webseiten zu authentifizieren und dabei nur einmal ihre Anmeldeinformationen einzugeben."
-    },
-    {
-        abbreviation: "VoIP",
-        meaning: "Voice over Internet Protocol",
-        explanation: "VoIP ist das Telefonieren über Rechnernetze, welche nach Internetstandards aufgebaut sind."
     }
 ];
 
@@ -761,13 +494,10 @@ addAbbreviationButton.addEventListener("click", () => {
         });
 
         // Sends the new abbreviation to server
-        if (typeof socket !== "undefined") {
-            socket.emit("newAbbrev", newAbbreviation, newDefinition, newExplanation);
-        }
+        socket.emit("newAbbrev", newAbbreviation, newDefinition, newExplanation);
 
         // Stores the abbreviations array in the browser's local storage.
         localStorage.setItem("abbreviations", JSON.stringify(abbreviations));
-        setIntroductionText();
         quitAddQuiz();
     }
 });
@@ -810,24 +540,17 @@ returnToStartButton.addEventListener("click", () => {
     addAndRemoveSection(startPageSection, addTermSection);
 });
 
-/* Set text for introduction paragraph
- * No parameter.
- * No return value.
- */
-const setIntroductionText = () => {
-    introductionParagraph.innerHTML = `Teste dein Wissen von ${abbreviations.length} Abkürzungen mit dem einzigartigen Abkürzungsquiz`;
-}
-setIntroductionText();
+// Set text for introduction paragraph
+introductionParagraph.innerHTML = `Teste dein Wissen von ${abbreviations.length} Abkürzungen mit dem einzigartigen Abkürzungsquiz`;
 
-if (typeof io !== "undefined") {
-    socket = io("http://localhost:3000");
 
-    socket.on("serverAbbreviations", (data) => {
-        if (data && data.length > 0) {
-            // Overwrites the local abbreviations array
-            abbreviations = data;
-            // Overwrites the client localstorage with the array from server
-            localStorage.setItem("abbreviations", JSON.stringify(data));
-        }
-    });
-}
+const socket = io("http://localhost:3000");
+
+socket.on("serverAbbreviations", (data) => {
+    if (data && data.length > 0) {
+        // Overwrites the local abbreviations array
+        abbreviations = data;
+        // Overwrites the client localstorage with the array from server
+        localStorage.setItem("abbreviations", JSON.stringify(data));
+    }
+});
