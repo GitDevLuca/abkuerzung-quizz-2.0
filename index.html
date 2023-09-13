@@ -3,30 +3,51 @@
 <head>
     <meta charset="utf-8">
     <title>Abkuerzungs-Quizz</title>
-    <link rel="stylesheet" href="styles/app.css">
-    <link rel="apple-touch-icon" href="images/aq_logo.png">
-    <link rel="icon" href="images/aq_logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./styles/app.css">
+    <link rel="apple-touch-icon" href="./images/aq_logo.png">
+    <link rel="icon" href="./images/aq_logo.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 </head>
 <body>
 <header class="nav_header">
-    <img id="img_logo" src="images/aq_logo.svg" alt="logo">
+    <img id="img_logo" src="./images/aq_logo.svg" alt="logo">
     <article class="art_logo">
-        <img id="img_logo_A" src="images/aq_logo_A.svg" alt="logo"/>
+        <img id="img_logo_A" src="./images/aq_logo_A.svg" alt="logo"/>
         <h1>bkuerzungs</h1>
     </article>
     <article class="art_logo">
-        <img id="img_logo_Q" src="images/aq_logo_Q.svg" alt="logo"/>
+        <img id="img_logo_Q" src="./images/aq_logo_Q.svg" alt="logo"/>
         <h1>uizz</h1>
     </article>
 </header>
+
 <section id="sec_start_page" class="page">
     <p id="par_introduction"></p>
     <button id="btn_start_quiz">Quiz starten</button>
     <button id="btn_add_term">Begriff hinzufügen</button>
+    <button id="btn_edit_terms">Begriffe bearbeiten</button>
+</section>
+
+<section id="sec_edit_terms" class="page hidden">
+    <h1>Begriffe bearbeiten</h1>
+    <button id="btn_edit_terms_return_to_start">Zurück zur Startseite</button>
+    <div class="div_terms">
+        <table>
+            <thead>
+            <tr>
+                <th>Abkürzung</th>
+                <th>Bedeutung</th>
+                <th>Erklärung</th>
+                <th>Bearbeiten</th>
+                <th>Löschen</th>
+            </tr>
+            </thead>
+            <tbody id="tab_abbreviations"></tbody>
+        </table>
+    </div>
 </section>
 
 <section id="sec_question" class="page hidden">
@@ -51,7 +72,7 @@
 </section>
 
 <section id="sec_add_term" class="page hidden">
-    <p>Füge einen Begriff hinzu:</p>
+    <h1>Begriff hinzufügen</h1>
     <label for="inp_abbreviation">Abkürzung:</label>
     <input id="inp_abbreviation" type="text" placeholder="Abkürzung"/>
 
@@ -76,6 +97,6 @@
 </section>
 
 <script src="http://localhost:3000/socket.io/socket.io.js"></script>
-<script src="scripts/app.js"></script>
+<script src="./scripts/app.js"></script>
 </body>
 </html>
