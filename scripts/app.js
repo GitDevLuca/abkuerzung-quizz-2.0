@@ -31,6 +31,31 @@ const pyroDiv = document.getElementById("div_pyro");
 
 const abbreviationsTable = document.getElementById("tab_abbreviations");
 
+// Language Constraints
+const bsa = document.getElementById("btn_submit_add");
+const bra = document.getElementById("btn_reset_add");
+const inputSubmit = document.getElementById("inp_submit");
+const inputAnswer = document.getElementById("inp_answer");
+const fuegeBegriff = document.getElementById("fue_begriff");
+const inputAbbreviation = document.getElementById("inp_abbreviation");
+const labelAbbreviation = document.getElementById("lab_abbreviation")
+const inputDefinition = document.getElementById("inp_definition");
+const labelDefinition = document.getElementById("lab_definition")
+const inputExplanation = document.getElementById("inp_explanation");
+const labelExplanation = document.getElementById("lab_explanation");
+let whatMeans = "Was beduetet";
+let question = "Frage";
+let yourInput = "Deine Eingabe";
+let langIndex = 0;
+const editTerms = document.getElementById("ter_edit");
+const abbreviationTerms = document.getElementById("abr_th");
+const meaningTerms = document.getElementById("mea_th");
+const explainTerms = document.getElementById("exp_th");
+const edit2Terms = document.getElementById("edi_th");
+const deleteTerms = document.getElementById("del_th");
+const titleBkuerzungs = document.getElementById("tit_bkuerzungs");
+const titleUizz = document.getElementById("tit_uizz");
+
 const lettersToAllow = ["é", "ô", "è", "î", "à", "ï", "ë", "û", "ù", "ò", "ê", "â"];
 
 let socket;
@@ -111,11 +136,6 @@ let abbreviations = JSON.parse(localStorage.getItem("abbreviations")) || [
         abbreviation: "JPEG",
         meaning: "Joint Photographic Experts Group",
         explanation: "JPEG (Joint Photographic Experts Group) ist ein gängiges Bildkompressionsformat. Es verringert Dateigrößen bei akzeptabler Qualität durch verlustbehaftete Kompression, besonders für Internet-Fotos und Bilder."
-    },
-    {
-        abbreviation: "KI",
-        meaning: "Künstliche Intelligenz ",
-        explanation: "Künstliche Intelligenz (AI) umfasst Computer, die wie Menschen lernen, Muster erkennen und entscheiden können. Algorithmen nutzen Daten, um Aufgaben zu automatisieren. Machine Learning und Deep Learning sind verwandte Technologien."
     },
     {
         abbreviation: "LAN",
@@ -199,8 +219,8 @@ let abbreviations = JSON.parse(localStorage.getItem("abbreviations")) || [
     },
     {
         abbreviation: "DB",
-        meaning: "Datenbank",
-        explanation: "Eine Datenbank ist eine organisierte Sammlung von strukturierten Informationen oder Daten. Sie ermöglicht die effiziente Speicherung, Verwaltung und Abfrage von Daten. Datenbanken werden in Unternehmen, Organisationen und Anwendungen eingesetzt, um Informationen zu organisieren und darauf zuzugreifen."
+        meaning: "Database",
+        explanation: "A database is an organized collection of structured information or data. It enables efficient storage, management and retrieval of data. Databases are used in businesses, organizations, and applications to organize and access information."
     },
     {
         abbreviation: "DDV",
@@ -241,11 +261,6 @@ let abbreviations = JSON.parse(localStorage.getItem("abbreviations")) || [
         abbreviation: "HDL",
         meaning: "Hardware Description Language",
         explanation: "Eine Hardware Description Language (HDL) ist eine spezielle Programmiersprache, um digitale Schaltkreise und Hardwareverhalten zu beschreiben. Ermöglicht Modellierung, Simulation und Synthese von Hardware-Designs vor der physischen Implementierung. Beschleunigt den Entwicklungsprozess von Hardwarekomponenten."
-    },
-    {
-        abbreviation: "IT",
-        meaning: "Informationstechnik",
-        explanation: "Informationstechnik (IT) bezieht sich auf die Nutzung von Technologie, um Informationen zu sammeln, zu speichern, zu verarbeiten und zu übertragen. Dies umfasst Hardware, Software und Netzwerke, die gemeinsam genutzt werden, um Daten effizient zu verwalten und zu nutzen. Die IT ist in verschiedenen Bereichen wie Computerwissenschaft, Kommunikation und Geschäftswesen von großer Bedeutung."
     },
     {
         abbreviation: "MAC",
@@ -458,11 +473,6 @@ let abbreviations = JSON.parse(localStorage.getItem("abbreviations")) || [
         explanation: "Die Internet Corporation for Assigned Names and Numbers (kurz: ICANN) koordiniert die Vergabe von einmaligen Namen und Adressen im Internet. Dazu gehört die Koordination des Domain Name Systems und die Zuteilung von IP-Adressen."
     },
     {
-        abbreviation: "DAU",
-        meaning: "Dümmster anzunehmender User",
-        explanation: "DAU ist ein Ausdruck für Computerbenutzer ohne Grundlagenwissen und Sachverständnis. Der Begriff spielt besonders in der Erstellung benutzertauglicher Hard- und Software (Usability) eine Rolle."
-    },
-    {
         abbreviation: "CRUD",
         meaning: "Create, Read, Update, Delete",
         explanation: "CRUD bezeichnet die vier grundlegenden Operationen persistenter Speichersysteme und Datenbanken."
@@ -491,11 +501,6 @@ let abbreviations = JSON.parse(localStorage.getItem("abbreviations")) || [
         abbreviation: "API",
         meaning: "Application Programming Interface",
         explanation: "Eine API ist ein Programmteil, der von einem Softwaresystem anderen Programmen zur Anbindung zur Verfügung gestellt wird. Zur Bereitstellung solch einer Schnittstelle gehört meist die detaillierte Dokumentation der Schnittstellen-Funktionen mit ihren Parametern."
-    },
-    {
-        abbreviation: "HERMES",
-        meaning: "Handbuch der Elektronischen Rechenzentren des Bundes, eine Methode zur Entwicklung von Systemen",
-        explanation: "HERMES ist ein offener Standard zur Führung und Abwicklung von IT-Projekten, welcher von der Bundesverwaltung der Schweiz entwickelt wird. Es ist seit 1975 im Einsatz."
     },
     {
         abbreviation: "CAPTCHA",
@@ -598,9 +603,13 @@ const addAndRemoveSection = (sectionToShow, sectionToHide) => {
  * No return value.
  */
 const nextQuestion = () => {
-    questionTitle.innerText = "Frage " + (questionCounter + 1) + "/5";
+    questionTitle.innerText = question + " " + (questionCounter + 1) + "/5";
     answerInput.value = "";
     questionLabel.innerText = "Was bedeutet " + shuffledObjects[questionCounter].abbreviation + "?";
+    shuffledObjects = abbreviations.sort(function () {
+        return Math.random() - .5;
+    });
+    questionLabel.innerText = whatMeans + " " + shuffledObjects[questionCounter].abbreviation + "?";
 };
 
 /** Function to check if something already exists.
@@ -720,8 +729,8 @@ const checkWordEquality = (answerWord, correctWord) => {
 const setAnswerCorrectnessPage = () => {
     const answerCorrectness = checkWordEquality(answerInput.value, shuffledObjects[questionCounter].meaning);
 
-    answerCorrectnessTitle.innerHTML = "Frage " + (questionCounter + 1) + "/5";
-    yourAnswerParagraph.innerHTML = "Deine Eingabe: " + answerInput.value;
+    answerCorrectnessTitle.innerHTML = question +" " + (questionCounter + 1) + "/5";
+    yourAnswerParagraph.innerHTML = yourInput + "" + answerInput.value;
 
     // Sets the symbol and the color of the answer correctness
     answerCorrectnessParagraph.innerHTML = answerCorrectness ? "&#10003;" : "&#10006;";
@@ -740,7 +749,8 @@ const setAnswerCorrectnessPage = () => {
  */
 const selectFeedbackByScore = () => {
     feedbackIcon.src = "images/feedback_icon_" + score + ".png";
-    return feedback[score];
+    return languages[langIndex].fee_dback[score];
+
 };
 
 /**
@@ -965,3 +975,235 @@ startPageButton.addEventListener("click", () => {
     score = 0;
     addAndRemoveSection(startPageSection, endPageSection);
 });
+
+
+
+let languages = [
+    {
+        lan_name : "de",
+        btn_start_quiz : "Quiz starten",
+        btn_add_term : "Begriff hinzufügen",
+        btn_continue : "Weiter",
+        btn_submit_add : "Speichern",
+        btn_reset_add : "Abbrechen",
+        btn_start_page: "Startseite",
+        inp_submit : "Korrektur",
+        inp_answer : "Antwort",
+        par_introduction :`Teste dein Wissen von ${abbreviations.length} Abkürzungen mit dem einzigartigen Abkürzungsquiz`,
+        fue_begriff : "Füge einen Begriff hinzu",
+        inp_abbreviation : "Abkürzung",
+        lab_abbreviation : "Abkürzung",
+        inp_definition : "Definition",
+        lab_definition : "Definition",
+        inp_explanation : "Erklärung",
+        lab_explanation : "Erklärung",
+        wha_means : "Was bedeutet",
+        que_stion : "Frage",
+        you_input : "Deine Eingabe: ",
+        fee_dback: [
+            "Es sieht so aus, als hättest du diese Runde verpasst. Gib nicht auf und versuche es erneut!",
+            "Dein erster Punkt ist immer der schwerste. Lerne aus diesem Quiz und mach es beim nächsten Mal noch besser.",
+            "Gut gemacht! Zwei Punkte sind besser als gar keine. Bleib am Ball und sieh zu, wie du dich steigerst.",
+            "Drei Punkte sind ein gutes Ergebnis. Dein Wissen wächst mit jedem Quiz.",
+            "Vier Punkte sind ein Grund zum Feiern. Du bist auf dem besten Weg zum Quiz-Champion.",
+            "Gut gemacht! Mit 5 Punkten hast du dein Wissen unter Beweis gestellt."
+        ],
+        btn_edit_terms_return_to_start : "Zurück zur Startseite",
+        ter_edit : "Begriffe bearbeiten",
+        btn_edit_terms : "Begriffe bearbeiten",
+        abr_th : "Abkürzung",
+        mea_th : "Bedeutung",
+        exp_th : "Erklärung",
+        edi_th : "Bearbeiten",
+        del_th : "Löschen",
+        tit_bkuerzungs : "bkuerzungs",
+        tit_uizz : "uizz"
+
+
+    },
+
+    {
+        lan_name : "en",
+        btn_start_quiz : "Start Quiz",
+        btn_add_term : "Add Term",
+        btn_continue : "Continue",
+        btn_submit_add : "Save",
+        btn_reset_add : "Cancel",
+        btn_start_page: "Home Page",
+        inp_submit : "Submit",
+        inp_answer : "Answer",
+        par_introduction :`Test your knowledge of ${abbreviations.length} abbreviations with the unique abbreviation quiz`,
+        fue_begriff : "Add a term",
+        inp_abbreviation : "Abbreviation",
+        lab_abbreviation : "Abbreviation",
+        inp_definition : "Definition",
+        lab_definition : "Definition",
+        inp_explanation : "Explanation",
+        lab_explanation : "Explanation",
+        wha_means : "What means",
+        que_stion : "Question",
+        you_input : "Your Input: ",
+        fee_dback : [
+            "It looks like you missed this round. Don't give up and try again!" ,
+            "Your first point is always the hardest. Learn from this quiz and do even better next time.",
+            "Good job! Two points are better than none. Keep at it and see how you improve.",
+            "Three points is a good score. Your knowledge grows with each quiz.",
+            "Four points is cause for celebration. You are well on your way to becoming a quiz champion.",
+            "Well done! With five points, you've proven your knowledge."
+        ],
+        btn_edit_terms_return_to_start : "Back to Home Page",
+        ter_edit : "Edit terms",
+        btn_edit_terms : "Edit terms",
+        abr_th: "Abbreviation",
+        mea_th: "Meaning",
+        exp_th: "Explanation",
+        edi_th: "Edit",
+        del_th: "Delete",
+        tit_bkuerzungs : "bbreviation",
+        tit_uizz : "uizz"
+    },
+
+    {
+        lan_name : "fr",
+        btn_start_quiz : "Démarrer le quiz",
+        btn_add_term : "Ajouter un terme",
+        btn_continue : "Continuer",
+        btn_submit_add : "Enregistrer",
+        btn_reset_add : "Annuler",
+        btn_start_page: "Page d'accueil",
+        inp_submit : "Correction",
+        inp_answer : "réponse",
+        par_introduction :`Testez vos connaissances sur ${abbreviations.length} abréviations avec le quiz d'abréviations unique`,
+        fue_begriff : "Ajoute un terme",
+        inp_abbreviation : "Abréviation",
+        lab_abbreviation : "Abréviation",
+        inp_definition : "Définition",
+        lab_definition : "Définition",
+        inp_explanation : "Explication",
+        lab_explanation : "Explication",
+        wha_means : "Que signifie",
+        que_stion : "Question",
+        you_input : "Ta saisie: ",
+        fee_dback : ["Il semblerait que tu aies raté ce tour. N'abandonne pas et réessaie !",
+            "Ton premier point est toujours le plus difficile. Tire les leçons de ce quiz et fais encore mieux la prochaine fois",
+            "Bien joué ! Deux points, c'est mieux que pas de point du tout. Reste concentré et regarde comment tu t'améliores",
+            "Trois points, c'est un bon résultat. Tes connaissances augmentent à chaque quiz",
+            "Quatre points, c'est une bonne raison de se réjouir. Tu es en passe de devenir le champion du quiz",
+            "Bravo ! Avec 5 points, tu as prouvé tes connaissances."
+        ],
+        btn_edit_terms_return_to_start : "Retour à la page d'accueil",
+        ter_edit : "Modifier les termes",
+        btn_edit_terms : "Modifier les termes",
+        abr_th: "Abréviation",
+        mea_th: "Signification",
+        exp_th: "Explication",
+        edi_th: "Éditer",
+        del_th: "Supprimer",
+        tit_bkuerzungs : "bréviation",
+        tit_uizz : "uizz"
+
+    },
+
+    {
+        lan_name : "it",
+        btn_start_quiz: "Inizia il quiz",
+        btn_add_term: "Aggiungi un termine",
+        btn_continue: "Continua",
+        btn_submit_add: "Salva",
+        btn_reset_add: "Annulla",
+        btn_start_page: "Pagina iniziale",
+        inp_submit: "Correzione",
+        inp_answer: "Risposta",
+        par_introduction: `Testa le tue conoscenze su ${abbreviations.length} abbreviazioni con il quiz sulle abbreviazioni unico`,
+        fue_begriff: "Aggiungi un termine",
+        inp_abbreviation: "Abbreviazione",
+        lab_abbreviation: "Abbreviazione",
+        inp_definition: "Definizione",
+        lab_definition: "Definizione",
+        inp_explanation: "Spiegazione",
+        lab_explanation: "Spiegazione",
+        wha_means: "Cosa significa",
+        que_stion: "Domanda",
+        you_input: "La tua inserzione: ",
+        fee_dback: [
+            "Sembra che tu abbia sbagliato questo round. Non arrenderti e riprova!",
+            "Il primo punto è sempre il più difficile. Impara da questo quiz e vai ancora meglio la prossima volta.",
+            "Bravo! Due punti sono meglio di zero. Resta concentrato e guarda come migliorare.",
+            "Tre punti sono un buon risultato. Le tue conoscenze crescono ad ogni quiz.",
+            "Quattro punti sono una buona ragione per essere felici. Stai diventando un campione del quiz.",
+            "Complimenti! Con 5 punti hai dimostrato le tue conoscenze."
+        ],
+        btn_edit_terms_return_to_start : "Torna alla pagina iniziale",
+        ter_edit : "Modifica dei termini",
+        btn_edit_terms : "Modifica dei termini",
+        abr_th: "Abbreviazione",
+        mea_th: "Significato",
+        exp_th: "Spiegazione",
+        edi_th: "Modificare",
+        del_th: "Eliminare",
+        tit_bkuerzungs : "bbreviazione",
+        tit_uizz : "uizz"
+    }
+
+
+];
+
+
+document.getElementById('language_select').addEventListener('change', translate, true);
+function translate()
+{
+    langIndex = parseInt(document.getElementById("language_select").value);
+    document.documentElement.lang = languages[langIndex].lan_name;
+    startQuizButton.innerHTML = languages[langIndex].btn_start_quiz;
+    addQuizTermButton.innerHTML = languages[langIndex].btn_add_term;
+    continueButton.innerHTML = languages[langIndex].btn_continue;
+    startPageButton.innerHTML = languages[langIndex].btn_start_page;
+    introductionParagraph.innerHTML = languages[langIndex].par_introduction;
+    bsa.value = languages[langIndex].btn_submit_add;
+    bra.value = languages[langIndex].btn_reset_add;
+    inputSubmit.value = languages[langIndex].inp_submit;
+    inputAnswer.placeholder = languages[langIndex].inp_answer;
+    bra.value = languages[langIndex].btn_reset_add;
+    bra.value = languages[langIndex].btn_reset_add;
+    fuegeBegriff.innerHTML = languages[langIndex].fue_begriff;
+
+    labelAbbreviation.innerText = languages[langIndex].lab_abbreviation;
+    inputAbbreviation.placeholder = languages[langIndex].inp_abbreviation;
+
+    labelDefinition.innerText = languages[langIndex].lab_definition;
+    inputDefinition.placeholder = languages[langIndex].inp_definition;
+
+    labelExplanation.innerText = languages[langIndex].lab_explanation;
+    inputExplanation.placeholder = languages[langIndex].inp_explanation;
+    whatMeans = languages[langIndex].wha_means;
+    question = languages[langIndex].que_stion;
+    yourInput = languages[langIndex].you_input;
+    editTermsPageReturnToStartButton.innerText = languages[langIndex].btn_edit_terms_return_to_start;
+    editTerms.innerText = languages[langIndex].ter_edit;
+    editTermsButton.innerText = languages[langIndex].btn_edit_terms;
+    abbreviationTerms.innerText = languages[langIndex].abr_th;
+    meaningTerms.innerHTML = languages[langIndex].mea_th;
+    explainTerms.innerHTML = languages[langIndex].exp_th;
+    edit2Terms.innerHTML = languages[langIndex].edi_th;
+    deleteTerms.innerHTML = languages[langIndex].del_th;
+    titleBkuerzungs.innerHTML = languages[langIndex].tit_bkuerzungs;
+    titleUizz.innerHTML = languages[langIndex].tit_uizz;
+
+}
+
+if (navigator.language.substring(0,2) !== languages[langIndex].lan_name){
+    if (navigator.language.substring(0,2) === "de" ){
+        document.getElementById("language_select").value = 0;
+    }
+    else if (navigator.language.substring(0,2) === "fr" ){
+        document.getElementById("language_select").value = 2;
+    }
+    else if (navigator.language.substring(0,2) === "it" ){
+        document.getElementById("language_select").value = 3;
+    }
+    else {document.getElementById("language_select").value = 1;
+    }
+
+    translate();
+}
+

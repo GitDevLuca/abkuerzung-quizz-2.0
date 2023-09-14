@@ -16,11 +16,11 @@
     <img id="img_logo" src="./images/aq_logo.svg" alt="logo">
     <article class="art_logo">
         <img id="img_logo_A" src="./images/aq_logo_A.svg" alt="logo"/>
-        <h1>bkuerzungs</h1>
+        <h1 id = "tit_bkuerzungs">bkuerzungs</h1>
     </article>
     <article class="art_logo">
         <img id="img_logo_Q" src="./images/aq_logo_Q.svg" alt="logo"/>
-        <h1>uizz</h1>
+        <h1 id = "tit_uizz">uizz</h1>
     </article>
 </header>
 
@@ -32,17 +32,17 @@
 </section>
 
 <section id="sec_edit_terms" class="page hidden">
-    <h1>Begriffe bearbeiten</h1>
+    <h1 id = "ter_edit">Begriffe bearbeiten</h1>
     <button id="btn_edit_terms_return_to_start">Zurück zur Startseite</button>
     <div class="div_terms">
         <table>
             <thead>
             <tr>
-                <th>Abkürzung</th>
-                <th>Bedeutung</th>
-                <th>Erklärung</th>
-                <th>Bearbeiten</th>
-                <th>Löschen</th>
+                <th id = "abr_th">Abkürzung</th>
+                <th id = "mea_th">Bedeutung</th>
+                <th id = "exp_th">Erklärung</th>
+                <th id = "edi_th">Bearbeiten</th>
+                <th id = "del_th">Löschen</th>
             </tr>
             </thead>
             <tbody id="tab_abbreviations"></tbody>
@@ -72,14 +72,14 @@
 </section>
 
 <section id="sec_add_term" class="page hidden">
-    <h1>Begriff hinzufügen</h1>
-    <label for="inp_abbreviation">Abkürzung:</label>
+    <h1 id = "fue_begriff">Füge einen Begriff hinzu:</h1>
+    <label for="inp_abbreviation" id="lab_abbreviation"> Abkürzung:</label>
     <input id="inp_abbreviation" type="text" placeholder="Abkürzung"/>
 
-    <label for="inp_definition">Definition:</label>
+    <label for="inp_definition" id="lab_definition">Definition:</label>
     <input id="inp_definition" type="text" placeholder="Definition"/>
 
-    <label for="inp_explanation">Erklärung:</label>
+    <label for="inp_explanation" id="lab_explanation">Erklärung:</label>
     <textarea id="inp_explanation" placeholder="Erklärung"></textarea>
 
     <input id="btn_submit_add" type="submit" value="Speichern"/>
@@ -95,6 +95,12 @@
         <div class="after"></div>
     </div>
 </section>
+<select id="language_select">
+    <option value="0">Deutsch</option>
+    <option value="1">English</option>
+    <option value="2">Französisch</option>
+    <option value="3">Italienisch</option>
+</select>
 
 <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 <script src="./scripts/app.js"></script>
