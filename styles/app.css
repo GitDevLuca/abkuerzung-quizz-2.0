@@ -67,6 +67,7 @@ body {
     align-items: center;
     gap: 20px;
     margin: 8% 0;
+    padding-bottom: 60px;
 }
 
 .page:not(.hidden) > form {
@@ -466,3 +467,24 @@ td, th {
         margin-left: 80%;
     }
 }
+
+
+
+
+#language_select {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#language_select option {
+    background-color: #fff;
+    color: #333;
+}
+
