@@ -125,8 +125,8 @@ module.exports = function(grunt) {
                     {expand: true, flatten: true, src: ['appmanifest.json'], dest: 'dist/'},
                     {expand: true, flatten: true, src: ['**.txt'], dest: 'dist/'},
                     {expand: true, flatten: true, src: ['**.md'], dest: 'dist/'},
-                    {expand: true, flatten: true, src: ['CNAME'], dest: 'dist/'}
-                    {expand: true, flatten: true, src: ['sounds/*.*'], dest: '/dist/'}
+                    {expand: true, flatten: true, src: ['CNAME'], dest: 'dist/'},
+                    {expand: true, flatten: true, src: ['sounds/*.*'], dest: '/dist/sounds'}
                     // , {
                     //     expand: true,
                     //     cwd: 'images/',
