@@ -15,7 +15,20 @@ module.exports = function(grunt) {
                 files: {
                     'dist/scripts/app.js': ['scripts/app.js']
                 }
+            },
+            two: {
+                options: {
+                    compress: true,
+                    mangle: true,
+                    output: {
+                        comments: 'some'
+                    }
+                },
+                files: {
+                    'dist/sw.js': ['sw.js']
+                }
             }
+        
         },
         svgmin: {
             options: {
@@ -122,7 +135,7 @@ module.exports = function(grunt) {
         copy: {
             main: {
                 files: [
-                    {expand: true, flatten: true, src: ['appmanifest.json'], dest: 'dist/'},
+                    {expand: true, flatten: true, src: ['manifest/appmanifest.json'], dest: 'dist/manifest/'},
                     {expand: true, flatten: true, src: ['**.txt'], dest: 'dist/'},
                     {expand: true, flatten: true, src: ['**.md'], dest: 'dist/'},
                     {expand: true, flatten: true, src: ['CNAME'], dest: 'dist/'},
