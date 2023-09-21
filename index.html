@@ -11,17 +11,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 </head>
-<body>
-<header class="nav_header">
-    <img id="img_logo" src="./images/aq_logo.svg" alt="logo">
-    <article class="art_logo">
-        <img id="img_logo_A" src="./images/aq_logo_A.svg" alt="logo"/>
-        <h1 id = "tit_bkuerzungs">bkuerzungs</h1>
-    </article>
-    <article class="art_logo">
-        <img id="img_logo_Q" src="./images/aq_logo_Q.svg" alt="logo"/>
-        <h1 id = "tit_uizz">uizz</h1>
-    </article>
+
+<body id="app-body">
+<header>
+    <label class="lbl_switch_mode">
+        <input type="checkbox" id="inp_dark_mode" onclick="darkMode()">
+        <span class="slider"></span>
+    </label>
+    <section class="nav_header">
+        <img id="img_logo" src="./images/aq_logo.svg" alt="logo">
+        <article class="art_logo" onclick="goToHome()">
+            <img id="img_logo_A" src="images/aq_logo_A.svg" alt="logo"/>
+            <h1 id="tit_bkuerzungs">bkuerzungs</h1>
+        </article>
+        <article class="art_logo" onclick="goToHome()">
+            <img id="img_logo_Q" src="images/aq_logo_Q.svg" alt="logo"/>
+            <h1 id="tit_uizz">uizz</h1>
+        </article>
+    </section>
 </header>
 
 <section id="sec_start_page" class="page">
@@ -38,17 +45,17 @@
 </section>
 
 <section id="sec_edit_terms" class="page hidden">
-    <h1 id = "ter_edit">Begriffe bearbeiten</h1>
+    <h1 id="ter_edit">Begriffe bearbeiten</h1>
     <button id="btn_edit_terms_return_to_start">Zurück zur Startseite</button>
     <div class="div_terms">
         <table>
             <thead>
             <tr>
-                <th id = "abr_th">Abkürzung</th>
-                <th id = "mea_th">Bedeutung</th>
-                <th id = "exp_th">Erklärung</th>
-                <th id = "edi_th">Bearbeiten</th>
-                <th id = "del_th">Löschen</th>
+                <th id="abr_th">Abkürzung</th>
+                <th id="mea_th">Bedeutung</th>
+                <th id="exp_th">Erklärung</th>
+                <th id="edi_th">Bearbeiten</th>
+                <th id="del_th">Löschen</th>
             </tr>
             </thead>
             <tbody id="tab_abbreviations"></tbody>
@@ -78,7 +85,7 @@
 </section>
 
 <section id="sec_add_term" class="page hidden">
-    <h1 id = "fue_begriff">Füge einen Begriff hinzu:</h1>
+    <h1 id="fue_begriff">Füge einen Begriff hinzu:</h1>
     <label for="inp_abbreviation" id="lab_abbreviation"> Abkürzung:</label>
     <input id="inp_abbreviation" type="text" placeholder="Abkürzung"/>
 

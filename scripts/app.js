@@ -1207,3 +1207,17 @@ if (navigator.language.substring(0, 2) !== languages[langIndex].lan_name) {
     translate();
 }
 
+function darkMode() {
+    // Declares variable with the name element to document.body
+    const element = document.body;
+    // Adds the CSS class "dark-mode" to element
+    element.classList.toggle("dark-mode");
+}
+
+function goToHome() {
+    startPageSection.classList.remove('hidden');
+    quizSection.classList.add('hidden');
+    answerCorrectnessSection.classList.add('hidden');
+    addTermSection.classList.add('hidden');
+    endPageSection.classList.add('hidden');
+}
