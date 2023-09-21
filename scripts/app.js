@@ -601,10 +601,6 @@ const addAndRemoveSection = (sectionToShow, sectionToHide) => {
 const nextQuestion = () => {
     questionTitle.innerText = question + " " + (questionCounter + 1) + "/5";
     answerInput.value = "";
-    questionLabel.innerText = "Was bedeutet " + shuffledObjects[questionCounter].abbreviation + "?";
-    shuffledObjects = abbreviations.sort(function () {
-        return Math.random() - .5;
-    });
     questionLabel.innerText = whatMeans + " " + shuffledObjects[questionCounter].abbreviation + "?";
 };
 
@@ -722,7 +718,7 @@ const checkWordEquality = (answerWord, correctWord) => {
 const setAnswerCorrectnessPage = () => {
     const answerCorrectness = checkWordEquality(answerInput.value, shuffledObjects[questionCounter].meaning);
 
-    answerCorrectnessTitle.innerHTML = question +" " + (questionCounter + 1) + "/5";
+    answerCorrectnessTitle.innerHTML = question + " " + (questionCounter + 1) + "/5";
     yourAnswerParagraph.innerHTML = yourInput + "" + answerInput.value;
 
     // Sets the symbol and the color of the answer correctness
@@ -984,29 +980,28 @@ startPageButton.addEventListener("click", () => {
 });
 
 
-
 let languages = [
     {
-        lan_name : "de",
-        btn_start_quiz : "Quiz starten",
-        btn_add_term : "Begriff hinzufügen",
-        btn_continue : "Weiter",
-        btn_submit_add : "Speichern",
-        btn_reset_add : "Abbrechen",
+        lan_name: "de",
+        btn_start_quiz: "Quiz starten",
+        btn_add_term: "Begriff hinzufügen",
+        btn_continue: "Weiter",
+        btn_submit_add: "Speichern",
+        btn_reset_add: "Abbrechen",
         btn_start_page: "Startseite",
-        inp_submit : "Korrektur",
-        inp_answer : "Antwort",
-        par_introduction :`Teste dein Wissen von ${abbreviations.length} Abkürzungen mit dem einzigartigen Abkürzungsquiz`,
-        fue_begriff : "Füge einen Begriff hinzu",
-        inp_abbreviation : "Abkürzung",
-        lab_abbreviation : "Abkürzung",
-        inp_definition : "Definition",
-        lab_definition : "Definition",
-        inp_explanation : "Erklärung",
-        lab_explanation : "Erklärung",
-        wha_means : "Was bedeutet",
-        que_stion : "Frage",
-        you_input : "Deine Eingabe: ",
+        inp_submit: "Korrektur",
+        inp_answer: "Antwort",
+        par_introduction: `Teste dein Wissen von ${abbreviations.length} Abkürzungen mit dem einzigartigen Abkürzungsquiz`,
+        fue_begriff: "Füge einen Begriff hinzu",
+        inp_abbreviation: "Abkürzung",
+        lab_abbreviation: "Abkürzung",
+        inp_definition: "Definition",
+        lab_definition: "Definition",
+        inp_explanation: "Erklärung",
+        lab_explanation: "Erklärung",
+        wha_means: "Was bedeutet",
+        que_stion: "Frage",
+        you_input: "Deine Eingabe: ",
         fee_dback: [
             "Es sieht so aus, als hättest du diese Runde verpasst. Gib nicht auf und versuche es erneut!",
             "Dein erster Punkt ist immer der schwerste. Lerne aus diesem Quiz und mach es beim nächsten Mal noch besser.",
@@ -1015,104 +1010,104 @@ let languages = [
             "Vier Punkte sind ein Grund zum Feiern. Du bist auf dem besten Weg zum Quiz-Champion.",
             "Gut gemacht! Mit 5 Punkten hast du dein Wissen unter Beweis gestellt."
         ],
-        btn_edit_terms_return_to_start : "Zurück zur Startseite",
-        ter_edit : "Begriffe bearbeiten",
-        btn_edit_terms : "Begriffe bearbeiten",
-        abr_th : "Abkürzung",
-        mea_th : "Bedeutung",
-        exp_th : "Erklärung",
-        edi_th : "Bearbeiten",
-        del_th : "Löschen",
-        tit_bkuerzungs : "bkuerzungs",
-        tit_uizz : "uizz"
+        btn_edit_terms_return_to_start: "Zurück zur Startseite",
+        ter_edit: "Begriffe bearbeiten",
+        btn_edit_terms: "Begriffe bearbeiten",
+        abr_th: "Abkürzung",
+        mea_th: "Bedeutung",
+        exp_th: "Erklärung",
+        edi_th: "Bearbeiten",
+        del_th: "Löschen",
+        tit_bkuerzungs: "bkuerzungs",
+        tit_uizz: "uizz"
 
 
     },
 
     {
-        lan_name : "en",
-        btn_start_quiz : "Start Quiz",
-        btn_add_term : "Add Term",
-        btn_continue : "Continue",
-        btn_submit_add : "Save",
-        btn_reset_add : "Cancel",
+        lan_name: "en",
+        btn_start_quiz: "Start Quiz",
+        btn_add_term: "Add Term",
+        btn_continue: "Continue",
+        btn_submit_add: "Save",
+        btn_reset_add: "Cancel",
         btn_start_page: "Home Page",
-        inp_submit : "Submit",
-        inp_answer : "Answer",
-        par_introduction :`Test your knowledge of ${abbreviations.length} abbreviations with the unique abbreviation quiz`,
-        fue_begriff : "Add a term",
-        inp_abbreviation : "Abbreviation",
-        lab_abbreviation : "Abbreviation",
-        inp_definition : "Definition",
-        lab_definition : "Definition",
-        inp_explanation : "Explanation",
-        lab_explanation : "Explanation",
-        wha_means : "What means",
-        que_stion : "Question",
-        you_input : "Your Input: ",
-        fee_dback : [
-            "It looks like you missed this round. Don't give up and try again!" ,
+        inp_submit: "Submit",
+        inp_answer: "Answer",
+        par_introduction: `Test your knowledge of ${abbreviations.length} abbreviations with the unique abbreviation quiz`,
+        fue_begriff: "Add a term",
+        inp_abbreviation: "Abbreviation",
+        lab_abbreviation: "Abbreviation",
+        inp_definition: "Definition",
+        lab_definition: "Definition",
+        inp_explanation: "Explanation",
+        lab_explanation: "Explanation",
+        wha_means: "What means",
+        que_stion: "Question",
+        you_input: "Your Input: ",
+        fee_dback: [
+            "It looks like you missed this round. Don't give up and try again!",
             "Your first point is always the hardest. Learn from this quiz and do even better next time.",
             "Good job! Two points are better than none. Keep at it and see how you improve.",
             "Three points is a good score. Your knowledge grows with each quiz.",
             "Four points is cause for celebration. You are well on your way to becoming a quiz champion.",
             "Well done! With five points, you've proven your knowledge."
         ],
-        btn_edit_terms_return_to_start : "Back to Home Page",
-        ter_edit : "Edit terms",
-        btn_edit_terms : "Edit terms",
+        btn_edit_terms_return_to_start: "Back to Home Page",
+        ter_edit: "Edit terms",
+        btn_edit_terms: "Edit terms",
         abr_th: "Abbreviation",
         mea_th: "Meaning",
         exp_th: "Explanation",
         edi_th: "Edit",
         del_th: "Delete",
-        tit_bkuerzungs : "bbreviation",
-        tit_uizz : "uizz"
+        tit_bkuerzungs: "bbreviation",
+        tit_uizz: "uizz"
     },
 
     {
-        lan_name : "fr",
-        btn_start_quiz : "Démarrer le quiz",
-        btn_add_term : "Ajouter un terme",
-        btn_continue : "Continuer",
-        btn_submit_add : "Enregistrer",
-        btn_reset_add : "Annuler",
+        lan_name: "fr",
+        btn_start_quiz: "Démarrer le quiz",
+        btn_add_term: "Ajouter un terme",
+        btn_continue: "Continuer",
+        btn_submit_add: "Enregistrer",
+        btn_reset_add: "Annuler",
         btn_start_page: "Page d'accueil",
-        inp_submit : "Correction",
-        inp_answer : "réponse",
-        par_introduction :`Testez vos connaissances sur ${abbreviations.length} abréviations avec le quiz d'abréviations unique`,
-        fue_begriff : "Ajoute un terme",
-        inp_abbreviation : "Abréviation",
-        lab_abbreviation : "Abréviation",
-        inp_definition : "Définition",
-        lab_definition : "Définition",
-        inp_explanation : "Explication",
-        lab_explanation : "Explication",
-        wha_means : "Que signifie",
-        que_stion : "Question",
-        you_input : "Ta saisie: ",
-        fee_dback : ["Il semblerait que tu aies raté ce tour. N'abandonne pas et réessaie !",
+        inp_submit: "Correction",
+        inp_answer: "réponse",
+        par_introduction: `Testez vos connaissances sur ${abbreviations.length} abréviations avec le quiz d'abréviations unique`,
+        fue_begriff: "Ajoute un terme",
+        inp_abbreviation: "Abréviation",
+        lab_abbreviation: "Abréviation",
+        inp_definition: "Définition",
+        lab_definition: "Définition",
+        inp_explanation: "Explication",
+        lab_explanation: "Explication",
+        wha_means: "Que signifie",
+        que_stion: "Question",
+        you_input: "Ta saisie: ",
+        fee_dback: ["Il semblerait que tu aies raté ce tour. N'abandonne pas et réessaie !",
             "Ton premier point est toujours le plus difficile. Tire les leçons de ce quiz et fais encore mieux la prochaine fois",
             "Bien joué ! Deux points, c'est mieux que pas de point du tout. Reste concentré et regarde comment tu t'améliores",
             "Trois points, c'est un bon résultat. Tes connaissances augmentent à chaque quiz",
             "Quatre points, c'est une bonne raison de se réjouir. Tu es en passe de devenir le champion du quiz",
             "Bravo ! Avec 5 points, tu as prouvé tes connaissances."
         ],
-        btn_edit_terms_return_to_start : "Retour à la page d'accueil",
-        ter_edit : "Modifier les termes",
-        btn_edit_terms : "Modifier les termes",
+        btn_edit_terms_return_to_start: "Retour à la page d'accueil",
+        ter_edit: "Modifier les termes",
+        btn_edit_terms: "Modifier les termes",
         abr_th: "Abréviation",
         mea_th: "Signification",
         exp_th: "Explication",
         edi_th: "Éditer",
         del_th: "Supprimer",
-        tit_bkuerzungs : "bréviation",
-        tit_uizz : "uizz"
+        tit_bkuerzungs: "bréviation",
+        tit_uizz: "uizz"
 
     },
 
     {
-        lan_name : "it",
+        lan_name: "it",
         btn_start_quiz: "Inizia il quiz",
         btn_add_term: "Aggiungi un termine",
         btn_continue: "Continua",
@@ -1140,16 +1135,16 @@ let languages = [
             "Quattro punti sono una buona ragione per essere felici. Stai diventando un campione del quiz.",
             "Complimenti! Con 5 punti hai dimostrato le tue conoscenze."
         ],
-        btn_edit_terms_return_to_start : "Torna alla pagina iniziale",
-        ter_edit : "Modifica dei termini",
-        btn_edit_terms : "Modifica dei termini",
+        btn_edit_terms_return_to_start: "Torna alla pagina iniziale",
+        ter_edit: "Modifica dei termini",
+        btn_edit_terms: "Modifica dei termini",
         abr_th: "Abbreviazione",
         mea_th: "Significato",
         exp_th: "Spiegazione",
         edi_th: "Modificare",
         del_th: "Eliminare",
-        tit_bkuerzungs : "bbreviazione",
-        tit_uizz : "uizz"
+        tit_bkuerzungs: "bbreviazione",
+        tit_uizz: "uizz"
     }
 
 
@@ -1157,8 +1152,8 @@ let languages = [
 
 
 document.getElementById('language_select').addEventListener('change', translate, true);
-function translate()
-{
+
+function translate() {
     langIndex = parseInt(document.getElementById("language_select").value);
     document.documentElement.lang = languages[langIndex].lan_name;
     startQuizButton.innerHTML = languages[langIndex].btn_start_quiz;
@@ -1198,17 +1193,15 @@ function translate()
 
 }
 
-if (navigator.language.substring(0,2) !== languages[langIndex].lan_name){
-    if (navigator.language.substring(0,2) === "de" ){
+if (navigator.language.substring(0, 2) !== languages[langIndex].lan_name) {
+    if (navigator.language.substring(0, 2) === "de") {
         document.getElementById("language_select").value = 0;
-    }
-    else if (navigator.language.substring(0,2) === "fr" ){
+    } else if (navigator.language.substring(0, 2) === "fr") {
         document.getElementById("language_select").value = 2;
-    }
-    else if (navigator.language.substring(0,2) === "it" ){
+    } else if (navigator.language.substring(0, 2) === "it") {
         document.getElementById("language_select").value = 3;
-    }
-    else {document.getElementById("language_select").value = 1;
+    } else {
+        document.getElementById("language_select").value = 1;
     }
 
     translate();
