@@ -31,6 +31,9 @@ const pyroDiv = document.getElementById("div_pyro");
 
 const abbreviationsTable = document.getElementById("tab_abbreviations");
 
+let isMuted = false;
+const muteButton = document.getElementById("btn_mute");
+
 // Language Constraints
 const bsa = document.getElementById("btn_submit_add");
 const bra = document.getElementById("btn_reset_add");
@@ -730,15 +733,19 @@ const setAnswerCorrectnessPage = () => {
     meaningParagraph.innerHTML = shuffledObjects[questionCounter].meaning;
     explanationParagraph.innerHTML = shuffledObjects[questionCounter].explanation;
 
+
     if (answerCorrectness) {
         score += 1;
-        const audio = new Audio('./sounds/correct_answer.mp3');
-        audio.play();
+        if (!isMuted) {
+            const audio = new Audio('./sounds/correct_answer.mp3');
+            audio.play();
+        }
     } else {
-        const audio = new Audio('./sounds/wrong_answer.mp3');
-        audio.play();
+        if (!isMuted) {
+            const audio = new Audio('./sounds/wrong_answer.mp3');
+            audio.play();
+        }
     }
-
 };
 
 /**
@@ -748,7 +755,9 @@ const setAnswerCorrectnessPage = () => {
  */
 const selectFeedbackByScore = () => {
     feedbackIcon.src = "images/feedback_icon_" + score + ".png";
-    soundsScore[score].play();
+    if (!isMuted) {
+        soundsScore[score].play();
+    }
     return languages[langIndex].fee_dback[score];
 };
 
@@ -937,8 +946,11 @@ returnToStartButton.addEventListener("click", () => {
 startQuizButton.addEventListener("click", () => {
     addAndRemoveSection(quizSection, startPageSection);
 
-    const audio = new Audio('./sounds/quiz_start.mp3');
-    audio.play();
+    if (!isMuted) {
+        const audio = new Audio('./sounds/quiz_start.mp3');
+        audio.play();
+    }
+
 
     // Randomly chooses five new abbreviations and stores them in shuffledObjects
     shuffledObjects = [];
@@ -979,7 +991,7 @@ startPageButton.addEventListener("click", () => {
     addAndRemoveSection(startPageSection, endPageSection);
 });
 
-
+// Strings for different languages
 let languages = [
     {
         lan_name: "de",
@@ -1190,7 +1202,6 @@ function translate() {
     deleteTerms.innerHTML = languages[langIndex].del_th;
     titleBkuerzungs.innerHTML = languages[langIndex].tit_bkuerzungs;
     titleUizz.innerHTML = languages[langIndex].tit_uizz;
-
 }
 
 if (navigator.language.substring(0, 2) !== languages[langIndex].lan_name) {
@@ -1220,4 +1231,14 @@ function goToHome() {
     answerCorrectnessSection.classList.add('hidden');
     addTermSection.classList.add('hidden');
     endPageSection.classList.add('hidden');
+}
+// ServiceWorker
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+        navigator.serviceWorker.register("sw.js").then(function (registration) {
+            console.log("ServiceWorker registration successful with scope: ", registration.scope);
+        }, function (err) {
+            console.log("ServiceWorker registration failed: ", err);
+        });
+    });
 }
