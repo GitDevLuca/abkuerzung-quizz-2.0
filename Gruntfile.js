@@ -15,7 +15,20 @@ module.exports = function(grunt) {
                 files: {
                     'dist/scripts/app.js': ['scripts/app.js']
                 }
+            },
+            two: {
+                options: {
+                    compress: true,
+                    mangle: true,
+                    output: {
+                        comments: 'some'
+                    }
+                },
+                files: {
+                    'dist/sw.js': ['sw.js']
+                }
             }
+        
         },
         svgmin: {
             options: {
