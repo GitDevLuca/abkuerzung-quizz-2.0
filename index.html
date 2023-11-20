@@ -38,6 +38,7 @@
     <p id="par_introduction"></p>
     <button id="btn_start_quiz">Quiz starten</button>
     <button id="btn_add_term">Begriff hinzufügen</button>
+    <button id="btn_stats">Statistik</button>
     <button id="btn_edit_terms">Begriffe bearbeiten</button>
     <select id="language_select" aria-label="Select language">
         <option value="0">Deutsch</option>
@@ -111,7 +112,33 @@
         <div class="after"></div>
     </div>
 </section>
+<section id="sec_stats_page" class="page hidden">
+    <div id="stats_container"><h1 id="stats_page_title">Statistik</h1>
+        <div id="subtitle_container">
+            <div id="playerScoreContainer" class="scoreContainer"><h3 id="averageScore_title">Dein Durchschnitt</h3>
+                <div id="averageScoreBlock"></div></div>
+            <div class="scoreContainer"><h3 id="averageServerScore_title">Durchschnitt aller Spieler</h3>
+                <div id="averageServerScoreBlock"></div></div>
 
+        </div>
+        <h2 id="blocks_title">Deine Punkte pro Quiz</h2>
+        <div id="block_container">
+
+            <div id="block5" class="block"><p>5</p></div>
+            <div id="block4" class="block"><p>4</p></div>
+            <div id="block3" class="block"><p>3</p></div>
+            <div id="block2" class="block"><p>2</p></div>
+            <div id="block1" class="block"><p>1</p></div>
+            <div id="block0" class="block"><p>0</p></div>
+        </div>
+
+        <div id="stats_page_btn_container">
+            <button id="btn_start_page_from_stats_page">Startseite</button>
+        </div>
+    </div>
+
+
+</section>
 <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 <script src="./scripts/app.js"></script>
 </body>
