@@ -1270,7 +1270,7 @@ function goToHome() {
     endPageSection.classList.add('hidden');
 }
 
-// ServiceWorker
+// ServiceWorker 
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
         navigator.serviceWorker.register("sw.js").then(function (registration) {
