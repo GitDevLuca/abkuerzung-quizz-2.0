@@ -1,0 +1,32 @@
+{
+  "name": "Abkuerzungs-Quizz",
+  "short_name": "AQ",
+  "version": "1.0",
+  "description": "A game for learning abbreviations in the form of a quiz that works offline.",
+  "default_locale": "de",
+  "icons": [
+    {
+      "src": "../images/aq_logo_192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "../images/aq_logo_512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "../images/maskable_icon.png",
+      "type": "image/png",
+      "sizes": "314x314",
+      "purpose": "maskable"
+    }
+  ],
+  "prefer_related_applications": false,
+  "categories": ["games", "education", "entertainment"],
+  "background_color": "#CE0100",
+  "theme_color": "#CE0100",
+  "display": "standalone",
+  "start_url": "../index.html",
+  "author": "Bernet Fabian; Cavaliere Luca; Hirt Joël; Schwarz Nicki; Weber Mattia; Wildi Vivienne"
+}
