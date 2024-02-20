@@ -50,7 +50,7 @@ const inputDefinition = document.getElementById("inp_definition");
 const labelDefinition = document.getElementById("lab_definition")
 const inputExplanation = document.getElementById("inp_explanation");
 const labelExplanation = document.getElementById("lab_explanation");
-let whatMeans = "Was beduetet";
+let whatMeans = "Was bedeutet";
 let question = "Frage";
 let yourInput = "Deine Eingabe: ";
 let langIndex = 0;
@@ -518,7 +518,11 @@ const nextQuestion = () => {
     answerInput.focus();
     questionTitle.innerText = question + " " + (questionCounter + 1) + "/5";
     answerInput.value = "";
-    questionLabel.innerText = whatMeans + " " + shuffledObjects[questionCounter].abbreviation + "?";
+    questionLabel.innerText =
+        languages[langIndex].lan_name === "en" ? whatMeans + " " + shuffledObjects[questionCounter].abbreviation + " "
+                                                 + languages[langIndex].ter_mean + "?" : whatMeans + " "
+                                                                                         + shuffledObjects[questionCounter].abbreviation
+                                                                                         + "?";
 };
 
 /** Function to check if something already exists.
@@ -906,7 +910,7 @@ startPageButton.addEventListener("click", () => {
 
 const buildBlocks = () => {
     let storageScores = localStorage.getItem("scores") || "NoQuiz";
-    if (storageScores !== "NoQuiz"){
+    if (storageScores !== "NoQuiz") {
         storageScores = JSON.parse(storageScores);
     }
     for (let i = 0; i < 6; i++) {
@@ -1076,7 +1080,8 @@ let languages = [
         lab_definition: "Definition",
         inp_explanation: "Explanation",
         lab_explanation: "Explanation",
-        wha_means: "What means",
+        wha_means: "What does",
+        ter_mean: "mean",
         que_stion: "Question",
         you_input: "Your Input: ",
         fee_dback: [
