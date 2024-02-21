@@ -77,7 +77,6 @@ const soundCorrectAnswer = new Audio("sounds/correct_answer.mp3");
 const soundWrongAnswer = new Audio("sounds/wrong_answer.mp3");
 const soundQuizStart = new Audio("sounds/quiz_start.mp3");
 
-
 let socket;
 
 // Abbreviation array
@@ -549,24 +548,21 @@ const checkUserInput = () => {
     const newAbbreviation = inpAbbreviation.value.trim();
     if (isAbbreviationEmpty || isAbbreviationAlreadyExisting(newAbbreviation)) {
         inpAbbreviation.classList.add("error");
-    }
-    else {
+    } else {
         inpAbbreviation.classList.remove("error");
     }
 
     // Definition field must not be empty
     if (isDefinitionEmpty) {
         inpDefinition.classList.add("error");
-    }
-    else {
+    } else {
         inpDefinition.classList.remove("error");
     }
 
     // Explanation field must not be empty
     if (isExplanationEmpty) {
         inpExplanation.classList.add("error");
-    }
-    else {
+    } else {
         inpExplanation.classList.remove("error");
     }
 
@@ -603,20 +599,16 @@ const minimizeWord = (wordToMinimize) => {
 
         if (wordToMinimizeLetter === "y" || wordToMinimizeLetter === "j") {
             wordToMinimizeLetter = "i";
-        }
-        else if (wordToMinimizeLetter === "ä" || wordToMinimizeLetter === "a") {
+        } else if (wordToMinimizeLetter === "ä" || wordToMinimizeLetter === "a") {
             wordToMinimizeLetter = "ae";
-        }
-        else if (wordToMinimizeLetter === "ö" || wordToMinimizeLetter === "o") {
+        } else if (wordToMinimizeLetter === "ö" || wordToMinimizeLetter === "o") {
             wordToMinimizeLetter = "oe";
-        }
-        else if (wordToMinimizeLetter === "ü" || wordToMinimizeLetter === "u") {
+        } else if (wordToMinimizeLetter === "ü" || wordToMinimizeLetter === "u") {
             wordToMinimizeLetter = "ue";
         }
 
         if (wordToMinimizeLetter !== " " && wordToMinimizeLetter.match(/^[0-9a-z]+$/) || lettersToAllow.includes(
-            wordToMinimizeLetter))
-        {
+            wordToMinimizeLetter)) {
             minimizedWord += wordToMinimizeLetter;
         }
     }
@@ -665,8 +657,7 @@ const setAnswerCorrectnessPage = () => {
             const audio = new Audio('./sounds/correct_answer.mp3');
             audio.play();
         }
-    }
-    else {
+    } else {
         if (!isMuted) {
             const audio = new Audio('./sounds/wrong_answer.mp3');
             audio.play();
@@ -786,8 +777,7 @@ const deleteTerm = (abbreviation) => {
 
         pushAbbreviationsIntoLocalStorage();
         updateEditTermsTable();
-    }
-    else {
+    } else {
         alert(`${abbreviation} kann nicht gelöscht werden:\nZu wenig Abkürzungen`);
     }
 };
@@ -917,8 +907,7 @@ const buildBlocks = () => {
         if (window.innerHeight < window.innerWidth) {
             document.getElementById("block" + i).style.height = "2em";
             document.getElementById("block" + i).style.width = "6%";
-        }
-        else {
+        } else {
             document.getElementById("block" + i).style.width = "2em";
             document.getElementById("block" + i).style.height = "2em";
         }
@@ -930,8 +919,7 @@ const buildBlocks = () => {
         document.getElementById("playerScoreContainer").style.display = "flex";
         document.getElementById("playerScoreContainer").style.justifyContent = "center";
         document.getElementById("playerScoreContainer").style.color = "#ce0100";
-    }
-    else {
+    } else {
         document.getElementById("averageScore_title").innerText = "Dein Durchschnitt"
         document.getElementById("averageScoreBlock").classList.remove("hidden");
         document.getElementById("playerScoreContainer").style.display = "grid";
@@ -947,8 +935,7 @@ const buildBlocks = () => {
             if (window.innerHeight < window.innerWidth) {
                 const sizeOfBlock = (amountOfScores / highestAmountOfScores) * 85 + 5;
                 document.getElementById("block" + i).style.width = sizeOfBlock + "%";
-            }
-            else {
+            } else {
                 const sizeOfBlock = (amountOfScores / highestAmountOfScores) * 70 + 20;
                 document.getElementById("block" + i).style.height = sizeOfBlock + "%";
             }
@@ -1005,8 +992,7 @@ const continueQuiz = () => {
         localStorage.setItem("scores", JSON.stringify(storageScores));
         addAndRemoveSection(endPageSection, answerCorrectnessSection);
         score === 5 ? pyroDiv.classList.remove("hidden") : pyroDiv.classList.add("hidden");
-    }
-    else {
+    } else {
         addAndRemoveSection(quizSection, answerCorrectnessSection);
         nextQuestion();
     }
@@ -1241,14 +1227,11 @@ function translate() {
 if (navigator.language.substring(0, 2) !== languages[langIndex].lan_name) {
     if (navigator.language.substring(0, 2) === "de") {
         document.getElementById("language_select").value = 0;
-    }
-    else if (navigator.language.substring(0, 2) === "fr") {
+    } else if (navigator.language.substring(0, 2) === "fr") {
         document.getElementById("language_select").value = 2;
-    }
-    else if (navigator.language.substring(0, 2) === "it") {
+    } else if (navigator.language.substring(0, 2) === "it") {
         document.getElementById("language_select").value = 3;
-    }
-    else {
+    } else {
         document.getElementById("language_select").value = 1;
     }
 
@@ -1256,21 +1239,32 @@ if (navigator.language.substring(0, 2) !== languages[langIndex].lan_name) {
 }
 
 function darkMode() {
-    // Declares variable with the name element to document.body
-    const element = document.body;
-    // Adds the CSS class "dark-mode" to element
-    element.classList.toggle("dark-mode");
+    document.body.classList.toggle("dark-mode");
+}
+
+function checkOs() {
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDarkMode) {
+        document.getElementById('inp_dark_mode').click();
+    }
 }
 
 function goToHome() {
+    const pageElements = document.querySelectorAll('.page');
+    pageElements.forEach(element => {
+        element.classList.add('hidden');
+    });
+    if (editTermsSection.classList.contains('add')) {
+        editTermsSection.classList.remove('add');
+    }
     startPageSection.classList.remove('hidden');
-    quizSection.classList.add('hidden');
-    answerCorrectnessSection.classList.add('hidden');
-    addTermSection.classList.add('hidden');
-    endPageSection.classList.add('hidden');
 }
 
-// ServiceWorker 
+
+document.getElementById('homeContainer').addEventListener('click', goToHome);
+document.getElementById('inp_dark_mode').addEventListener('click', darkMode);
+
+// ServiceWorker
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
         navigator.serviceWorker.register("sw.js").then(function (registration) {
@@ -1280,3 +1274,5 @@ if ("serviceWorker" in navigator) {
         });
     });
 }
+
+checkOs();

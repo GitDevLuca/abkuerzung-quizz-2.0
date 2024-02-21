@@ -18,20 +18,22 @@
 <body id="app-body">
 <header>
     <label class="lbl_switch_mode">
-        <input type="checkbox" id="inp_dark_mode" onclick="darkMode()">
+        <input type="checkbox" id="inp_dark_mode">
         <span class="slider"></span>
     </label>
-    <section class="nav_header">
-        <img id="img_logo" src="./images/aq_logo.svg" alt="logo">
-        <article class="art_logo" onclick="goToHome()">
-            <img id="img_logo_A" src="images/aq_logo_A.svg" alt="logo"/>
-            <h1 id="tit_bkuerzungs">bkuerzungs</h1>
-        </article>
-        <article class="art_logo" onclick="goToHome()">
-            <img id="img_logo_Q" src="images/aq_logo_Q.svg" alt="logo"/>
-            <h1 id="tit_uizz">uizz</h1>
-        </article>
-    </section>
+    <div id="homeContainer">
+        <section class="nav_header">
+            <img id="img_logo" src="./images/aq_logo.svg" alt="logo">
+            <article class="art_logo">
+                <img id="img_logo_A" src="images/aq_logo_A.svg" alt="logo"/>
+                <h1 id="tit_bkuerzungs">bkuerzungs</h1>
+            </article>
+            <article class="art_logo">
+                <img id="img_logo_Q" src="images/aq_logo_Q.svg" alt="logo"/>
+                <h1 id="tit_uizz">uizz</h1>
+            </article>
+        </section>
+    </div>
 </header>
 
 <section id="sec_start_page" class="page">
@@ -116,9 +118,11 @@
     <div id="stats_container"><h1 id="stats_page_title">Statistik</h1>
         <div id="subtitle_container">
             <div id="playerScoreContainer" class="scoreContainer"><h3 id="averageScore_title">Dein Durchschnitt</h3>
-                <div id="averageScoreBlock"></div></div>
+                <div id="averageScoreBlock"></div>
+            </div>
             <div class="scoreContainer"><h3 id="averageServerScore_title">Durchschnitt aller Spieler</h3>
-                <div id="averageServerScoreBlock"></div></div>
+                <div id="averageServerScoreBlock"></div>
+            </div>
 
         </div>
         <h2 id="blocks_title">Deine Punkte pro Quiz</h2>
