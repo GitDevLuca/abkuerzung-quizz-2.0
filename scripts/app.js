@@ -6,6 +6,10 @@ const continueButton = document.getElementById("btn_continue");
 const startPageButton = document.getElementById("btn_start_page");
 const statsPageButton = document.getElementById("btn_stats");
 const startPageButtonFromStatsPage = document.getElementById("btn_start_page_from_stats_page");
+const statspagetitle = document.getElementById("stats_page_title");
+const averageServerScoretitle = document.getElementById("averageServerScore_title");
+const blockstitle = document.getElementById("blocks_title")
+const averageScoretitle = document.getElementById("averageScore_title")
 
 const editTermsPageReturnToStartButton = document.getElementById("btn_edit_terms_return_to_start");
 
@@ -801,6 +805,7 @@ if (typeof io !== "undefined") {
             abbreviations = data;
             // Overwrites the client localstorage with the array from server
             localStorage.setItem("abbreviations", JSON.stringify(data));
+            setIntroductionText();
         }
     });
     socket.on("sendServerScores", (serverScores) => {
@@ -913,17 +918,17 @@ const buildBlocks = () => {
         }
     }
     if (storageScores === "NoQuiz") {
-        document.getElementById("averageScore_title").innerText = "Du hast noch kein Quiz gespielt.";
+        averageScoretitle.innerHTML = languages[langIndex].avg_score_unavailable;
         document.getElementById("averageScore_title").style.textAlign = "center";
         document.getElementById("averageScoreBlock").classList.add("hidden");
         document.getElementById("playerScoreContainer").style.display = "flex";
         document.getElementById("playerScoreContainer").style.justifyContent = "center";
         document.getElementById("playerScoreContainer").style.color = "#ce0100";
     } else {
-        document.getElementById("averageScore_title").innerText = "Dein Durchschnitt"
+        averageScoretitle.innerHTML =  languages[langIndex].avg_score_available;
         document.getElementById("averageScoreBlock").classList.remove("hidden");
         document.getElementById("playerScoreContainer").style.display = "grid";
-        document.getElementById("playerScoreContainer").style.color = "#000000";
+        document.getElementById("playerScoreContainer").style.removeProperty('color');
         let highestAmountOfScores = -1;
         for (let i = 0; i < 6; i++) {
             if (highestAmountOfScores < storageScores.filter(score => score === i).length) {
@@ -1043,7 +1048,14 @@ let languages = [
         edi_th: "Bearbeiten",
         del_th: "Löschen",
         tit_bkuerzungs: "bkuerzungs",
-        tit_uizz: "uizz"
+        tit_uizz: "uizz",
+        btn_stats: "Statistik",
+        btn_start_page_from_stats_page: "Startseite",
+        stats_page_title: "Statistik",
+        averageServerScore_title: "Durchschnitt aller Spieler",
+        blocks_title: "Deine Punkte pro Quiz",
+        avg_score_available: "Dein Durchschnitt",
+        avg_score_unavailable: "Du hast noch kein Quiz gespielt."
 
 
     },
@@ -1087,7 +1099,14 @@ let languages = [
         edi_th: "Edit",
         del_th: "Delete",
         tit_bkuerzungs: "bbreviation",
-        tit_uizz: "uizz"
+        tit_uizz: "uizz",
+        btn_stats: "Statistics",
+        btn_start_page_from_stats_page: "Home Page",
+        stats_page_title: "Statistics",
+        averageServerScore_title: "Average of all players",
+        blocks_title: "Your points per quiz",
+        avg_score_available: "Your average",
+        avg_score_unavailable: "You haven't played a quiz yet."
     },
 
     {
@@ -1128,7 +1147,14 @@ let languages = [
         edi_th: "Éditer",
         del_th: "Supprimer",
         tit_bkuerzungs: "bréviation",
-        tit_uizz: "uizz"
+        tit_uizz: "uizz",
+        btn_stats: "Statistiques",
+        btn_start_page_from_stats_page: "Page d'accueil",
+        stats_page_title: "Statistiques",
+        averageServerScore_title: "Moyenne de tous les joueurs",
+        blocks_title: "Tes points par quiz",
+        avg_score_available: "Ta moyenne",
+        avg_score_unavailable: "Tu n'as pas encore joué au quiz."
 
     },
 
@@ -1170,7 +1196,14 @@ let languages = [
         edi_th: "Modificare",
         del_th: "Eliminare",
         tit_bkuerzungs: "bbreviazione",
-        tit_uizz: "uizz"
+        tit_uizz: "uizz",
+        btn_stats: "Statistiche",
+        btn_start_page_from_stats_page: "Pagina iniziale",
+        stats_page_title: "Statistiche",
+        averageServerScore_title: "Media di tutti i giocatori",
+        blocks_title: "Punti per quiz",
+        avg_score_available: "La vostra media",
+        avg_score_unavailable: "Non hai ancora giocato a un quiz."
     }
 ];
 
@@ -1185,6 +1218,8 @@ setIntroductionText();
 
 document.getElementById('language_select').addEventListener('change', translate, true);
 
+//Translation Arrays
+
 function translate() {
     langIndex = parseInt(document.getElementById("language_select").value);
     document.documentElement.lang = languages[langIndex].lan_name;
@@ -1192,6 +1227,13 @@ function translate() {
     addQuizTermButton.innerHTML = languages[langIndex].btn_add_term;
     continueButton.innerHTML = languages[langIndex].btn_continue;
     startPageButton.innerHTML = languages[langIndex].btn_start_page;
+    statsPageButton.innerHTML = languages[langIndex].btn_stats;
+    startPageButtonFromStatsPage.innerHTML = languages[langIndex].btn_start_page_from_stats_page
+    statspagetitle.innerHTML = languages[langIndex].stats_page_title
+    averageServerScoretitle.innerHTML = languages[langIndex].averageServerScore_title
+    blockstitle.innerHTML = languages[langIndex].blocks_title
+
+
     setIntroductionText();
     bsa.value = languages[langIndex].btn_submit_add;
     bra.value = languages[langIndex].btn_reset_add;
