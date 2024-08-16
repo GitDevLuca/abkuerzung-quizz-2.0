@@ -530,7 +530,7 @@ td, th {
 
 .dark-mode textarea, .dark-mode input {
     color: #F2F2F2;
-    background-color: #1F5151;
+    background-color: #3e3f41;
 }
 
 input:checked ~ .slider {
