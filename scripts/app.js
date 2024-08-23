@@ -32,6 +32,7 @@ const answerCorrectnessParagraph = document.getElementById("par_answer_correctne
 const abbreviationTitle = document.getElementById("tit_abbreviation");
 const meaningParagraph = document.getElementById("par_meaning");
 const explanationParagraph = document.getElementById("par_explanation");
+const filterInput = document.getElementById("inp_filter");
 
 const introductionParagraph = document.getElementById("par_introduction");
 const feedbackParagraph = document.getElementById("par_out_feedback");
@@ -51,7 +52,7 @@ const fuegeBegriff = document.getElementById("fue_begriff");
 const inputAbbreviation = document.getElementById("inp_abbreviation");
 const labelAbbreviation = document.getElementById("lab_abbreviation")
 const inputDefinition = document.getElementById("inp_definition");
-const labelDefinition = document.getElementById("lab_definition")
+const labelDefinition = document.getElementById("lab_definition");
 const inputExplanation = document.getElementById("inp_explanation");
 const labelExplanation = document.getElementById("lab_explanation");
 let whatMeans = "Was bedeutet";
@@ -484,6 +485,8 @@ let abbreviations = JSON.parse(localStorage.getItem("abbreviations")) || [
     }
 ];
 
+let filteredAbbreviations = abbreviations;
+
 // Abbreviations-Save/Cancel site variables
 const returnToStartButton = document.getElementById("btn_reset_add");
 const addAbbreviationButton = document.getElementById("btn_submit_add");
@@ -581,9 +584,7 @@ const checkUserInput = () => {
  */
 const quitAddTermScreen = () => {
     addAndRemoveSection(startPageSection, addTermSection);
-    inpAbbreviation.value = "";
-    inpDefinition.value = "";
-    inpExplanation.value = "";
+    clearAddAbbreviationInputs();
 }
 
 /**
@@ -687,26 +688,27 @@ const selectFeedbackByScore = () => {
  * No parameter.
  * No return value.
  */
-const updateEditTermsTable = () => {
+const updateEditTermsTable = (abbreviationsToDisplay = abbreviations) => {
     abbreviationsTable.innerHTML = null;
-    for (const abbreviationIndex in abbreviations) {
+    for (const abbreviationToDisplay of abbreviationsToDisplay) {
+        abbreviationIndex = abbreviations.indexOf(abbreviationToDisplay);
         abbreviationsTable.innerHTML += `<tr data-index="${abbreviationIndex}">
                 <td>
-                    ${abbreviations[abbreviationIndex].abbreviation}
+                    ${abbreviationToDisplay.abbreviation}
                 </td>
                 <td>
-                    <span id="spa_edit_abbreviation_meaning_${abbreviationIndex}">${abbreviations[abbreviationIndex].meaning}</span>
-                    <input id="inp_edit_abbreviation_meaning_${abbreviationIndex}" class="hidden editInput" value="${abbreviations[abbreviationIndex].meaning}">
+                    <span id="spa_edit_abbreviation_meaning_${abbreviationIndex}">${abbreviationToDisplay.meaning}</span>
+                    <input id="inp_edit_abbreviation_meaning_${abbreviationIndex}" class="hidden editInput" value="${abbreviationToDisplay.meaning}">
                 </td>
                 <td>
-                    <span id="spa_edit_abbreviation_explanation_${abbreviationIndex}">${abbreviations[abbreviationIndex].explanation}</span>
-                    <textarea id="inp_edit_abbreviation_explanation_${abbreviationIndex}" class="hidden editInput">${abbreviations[abbreviationIndex].explanation}</textarea>
+                    <span id="spa_edit_abbreviation_explanation_${abbreviationIndex}">${abbreviationToDisplay.explanation}</span>
+                    <textarea id="inp_edit_abbreviation_explanation_${abbreviationIndex}" class="hidden editInput">${abbreviationToDisplay.explanation}</textarea>
                 </td>
                 <td>
-                    <button id="btn_edit_term_${abbreviationIndex}" onclick="editTerm('${abbreviations[abbreviationIndex].abbreviation}')">&#128393;</button>
+                    <button id="btn_edit_term_${abbreviationIndex}" onclick="editTerm('${abbreviationToDisplay.abbreviation}', ${abbreviationIndex})">&#128393;</button>
                 </td>
                 <td>
-                    <button id="btn_delete_term_${abbreviationIndex}" onclick="deleteTerm('${abbreviations[abbreviationIndex].abbreviation}')">&#128465;</button>
+                    <button id="btn_delete_term_${abbreviationIndex}" onclick="deleteTerm('${abbreviationToDisplay.abbreviation}')">&#128465;</button>
                 </td>
             </tr>`;
     }
@@ -717,9 +719,7 @@ const updateEditTermsTable = () => {
  * Parameter 1: index of the term to edit
  * No return value.
  */
-const editTerm = (abbreviation) => {
-    const abbreviationIndex = abbreviations.findIndex((serverAbbreviation => serverAbbreviation.abbreviation === abbreviation));
-
+const editTerm = (abbreviation, abbreviationIndex) => {
     const termMeaningSpan = document.getElementById(`spa_edit_abbreviation_meaning_${abbreviationIndex}`);
     const termExplanationSpan = document.getElementById(`spa_edit_abbreviation_explanation_${abbreviationIndex}`);
     const editTermMeaningInput = document.getElementById(`inp_edit_abbreviation_meaning_${abbreviationIndex}`);
@@ -727,11 +727,12 @@ const editTerm = (abbreviation) => {
     const editTermButton = document.getElementById(`btn_edit_term_${abbreviationIndex}`);
 
     // Disables other edit and delete buttons
-    for (const index in abbreviations) {
-        if (parseInt(index) !== abbreviationIndex) {
-            document.getElementById(`btn_edit_term_${index}`).disabled = true;
+    for (const filteredAbbreviation of filteredAbbreviations) {
+        const filteredAbbreviationIndex = abbreviations.indexOf(filteredAbbreviation);
+        if (filteredAbbreviationIndex !== abbreviationIndex) {
+            document.getElementById(`btn_edit_term_${filteredAbbreviationIndex}`).disabled = true;
         }
-        document.getElementById(`btn_delete_term_${index}`).disabled = true;
+        document.getElementById(`btn_delete_term_${filteredAbbreviationIndex}`).disabled = true;
     }
 
     // Replaces the text in the table with input fields
@@ -760,6 +761,8 @@ const editTerm = (abbreviation) => {
 
         pushAbbreviationsIntoLocalStorage();
         updateEditTermsTable();
+        clearFilterInput();
+        filteredAbbreviations = abbreviations;
         editTermButton.removeEventListener("click", () => {
         }, true);
     });
@@ -781,9 +784,30 @@ const deleteTerm = (abbreviation) => {
 
         pushAbbreviationsIntoLocalStorage();
         updateEditTermsTable();
+        clearFilterInput();
     } else {
         alert(`${abbreviation} kann nicht gelöscht werden:\nZu wenig Abkürzungen`);
     }
+};
+
+/**
+ * Clears the filter input field.
+ * No parameter.
+ * No return value.
+ */
+const clearFilterInput = () => {
+    filterInput.value = "";
+};
+
+/**
+ * Clears the input fields of the add abbreviation page.
+ * No parameter.
+ * No return value.
+ */
+const clearAddAbbreviationInputs = () => {
+    inpAbbreviation.value = "";
+    inpDefinition.value = "";
+    inpExplanation.value = "";
 };
 
 /**
@@ -820,7 +844,9 @@ if (typeof io !== "undefined") {
 
     })
 }
+
 //Event listeners
+
 // Check if the abbreviation already exists, clear the fields & red color
 inpAbbreviation.addEventListener("input", checkUserInput);
 inpDefinition.addEventListener("input", checkUserInput);
@@ -859,7 +885,16 @@ editTermsButton.addEventListener("click", () => {
     updateEditTermsTable();
 });
 
+filterInput.addEventListener("input", (e) => {
+    filteredAbbreviations = abbreviations.filter(abbreviation => {
+        const result = new RegExp(e.target.value, 'i');
+        return (result.test(abbreviation.abbreviation) || result.test(abbreviation.meaning) || result.test(abbreviation.explanation));
+    });
+    updateEditTermsTable(filteredAbbreviations);
+});
+
 editTermsPageReturnToStartButton.addEventListener("click", () => {
+    clearFilterInput();
     addAndRemoveSection(startPageSection, editTermsSection);
 });
 
@@ -874,7 +909,6 @@ startQuizButton.addEventListener("click", () => {
         const audio = new Audio('./sounds/quiz_start.mp3');
         audio.play();
     }
-
 
     // Randomly chooses five new abbreviations and stores them in shuffledObjects
     shuffledObjects = [];
@@ -956,14 +990,14 @@ const buildBlocks = () => {
 }
 
 window.addEventListener("resize", function () {
-    buildBlocks()
+    buildBlocks();
 });
 
 statsPageButton.addEventListener("click", () => {
     if (typeof socket !== "undefined") {
         socket.emit("requestServerScores");
     }
-    buildBlocks()
+    buildBlocks();
     addAndRemoveSection(statsPageSection, startPageSection);
 
 })
@@ -980,7 +1014,6 @@ document.addEventListener("keydown", function (event) {
         continueQuiz();
     }
 });
-
 
 const continueQuiz = () => {
     questionCounter += 1;
@@ -1002,6 +1035,7 @@ const continueQuiz = () => {
         nextQuestion();
     }
 }
+
 startPageButton.addEventListener("click", () => {
     questionCounter = 0;
     score = 0;
@@ -1233,7 +1267,6 @@ function translate() {
     averageServerScoretitle.innerHTML = languages[langIndex].averageServerScore_title
     blockstitle.innerHTML = languages[langIndex].blocks_title
 
-
     setIntroductionText();
     bsa.value = languages[langIndex].btn_submit_add;
     bra.value = languages[langIndex].btn_reset_add;
@@ -1300,8 +1333,9 @@ function goToHome() {
         editTermsSection.classList.remove('add');
     }
     startPageSection.classList.remove('hidden');
+    clearAddAbbreviationInputs();
+    clearFilterInput();
 }
-
 
 document.getElementById('homeContainer').addEventListener('click', goToHome);
 document.getElementById('inp_dark_mode').addEventListener('click', darkMode);

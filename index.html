@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <title>Abkuerzungs-Quizz</title>
@@ -54,6 +54,8 @@
     <h1 id="ter_edit">Begriffe bearbeiten</h1>
     <button id="btn_edit_terms_return_to_start">Zurück zur Startseite</button>
     <div class="div_terms">
+        <label id="lab_inp_filter" for="inp_filter">Suchen nach:</label>
+        <input id="inp_filter" type="search" placeholder="Suchbegriff"/>
         <table>
             <thead>
             <tr>
@@ -114,6 +116,7 @@
         <div class="after"></div>
     </div>
 </section>
+
 <section id="sec_stats_page" class="page hidden">
     <div id="stats_container"><h1 id="stats_page_title">Statistik</h1>
         <div id="subtitle_container">
@@ -123,11 +126,9 @@
             <div class="scoreContainer"><h3 id="averageServerScore_title">Durchschnitt aller Spieler</h3>
                 <div id="averageServerScoreBlock"></div>
             </div>
-
         </div>
         <h2 id="blocks_title">Deine Punkte pro Quiz</h2>
         <div id="block_container">
-
             <div id="block5" class="block"><p>5</p></div>
             <div id="block4" class="block"><p>4</p></div>
             <div id="block3" class="block"><p>3</p></div>
@@ -140,9 +141,8 @@
             <button id="btn_start_page_from_stats_page">Startseite</button>
         </div>
     </div>
-
-
 </section>
+
 <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 <script src="./scripts/app.js"></script>
 </body>

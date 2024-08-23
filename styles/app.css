@@ -238,6 +238,11 @@ input:focus, textarea:focus, input:hover, textarea:hover {
     width: 10%;
 }
 
+#lab_inp_filter {
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
 .div_terms {
     width: 95%;
     max-width: 100%;
