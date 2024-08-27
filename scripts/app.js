@@ -32,6 +32,7 @@ const answerCorrectnessParagraph = document.getElementById("par_answer_correctne
 const abbreviationTitle = document.getElementById("tit_abbreviation");
 const meaningParagraph = document.getElementById("par_meaning");
 const explanationParagraph = document.getElementById("par_explanation");
+const filterInputLabel = document.getElementById("lab_inp_filter");
 const filterInput = document.getElementById("inp_filter");
 
 const introductionParagraph = document.getElementById("par_introduction");
@@ -1076,6 +1077,7 @@ let languages = [
         btn_edit_terms_return_to_start: "Zurück zur Startseite",
         ter_edit: "Begriffe bearbeiten",
         btn_edit_terms: "Begriffe bearbeiten",
+        lab_inp_filter: "Suchen nach:",
         abr_th: "Abkürzung",
         mea_th: "Bedeutung",
         exp_th: "Erklärung",
@@ -1127,6 +1129,7 @@ let languages = [
         btn_edit_terms_return_to_start: "Back to Home Page",
         ter_edit: "Edit terms",
         btn_edit_terms: "Edit terms",
+        lab_inp_filter: "Search for:",
         abr_th: "Abbreviation",
         mea_th: "Meaning",
         exp_th: "Explanation",
@@ -1175,6 +1178,7 @@ let languages = [
         btn_edit_terms_return_to_start: "Retour à la page d'accueil",
         ter_edit: "Modifier les termes",
         btn_edit_terms: "Modifier les termes",
+        lab_inp_filter: "Rechercher :",
         abr_th: "Abréviation",
         mea_th: "Signification",
         exp_th: "Explication",
@@ -1224,6 +1228,7 @@ let languages = [
         btn_edit_terms_return_to_start: "Torna alla pagina iniziale",
         ter_edit: "Modifica dei termini",
         btn_edit_terms: "Modifica dei termini",
+        lab_inp_filter: "Ricerca per:",
         abr_th: "Abbreviazione",
         mea_th: "Significato",
         exp_th: "Spiegazione",
@@ -1290,6 +1295,7 @@ function translate() {
     editTermsPageReturnToStartButton.innerText = languages[langIndex].btn_edit_terms_return_to_start;
     editTerms.innerText = languages[langIndex].ter_edit;
     editTermsButton.innerText = languages[langIndex].btn_edit_terms;
+    filterInputLabel.innerText = languages[langIndex].lab_inp_filter;
     abbreviationTerms.innerText = languages[langIndex].abr_th;
     meaningTerms.innerHTML = languages[langIndex].mea_th;
     explainTerms.innerHTML = languages[langIndex].exp_th;
