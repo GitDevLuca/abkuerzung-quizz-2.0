@@ -34,7 +34,6 @@ const meaningParagraph = document.getElementById("par_meaning");
 const explanationParagraph = document.getElementById("par_explanation");
 const filterInputLabel = document.getElementById("lab_inp_filter");
 const filterInput = document.getElementById("inp_filter");
-const filterInputSpinner = document.getElementById("img_spinner");
 
 const introductionParagraph = document.getElementById("par_introduction");
 const feedbackParagraph = document.getElementById("par_out_feedback");
@@ -887,18 +886,12 @@ editTermsButton.addEventListener("click", () => {
     updateEditTermsTable();
 });
 
-filterInput.addEventListener("input", async (e) => {
-    filterInputSpinner.classList.remove("hidden");
+filterInput.addEventListener("input", (e) => {
     filteredAbbreviations = abbreviations.filter(abbreviation => {
         const result = new RegExp(e.target.value, 'i');
         return (result.test(abbreviation.abbreviation) || result.test(abbreviation.meaning) || result.test(abbreviation.explanation));
     });
     updateEditTermsTable(filteredAbbreviations);
-
-    // Delay of 1 Second to hide the spinner
-    setTimeout(() => {
-        filterInputSpinner.classList.add("hidden");
-    }, 1000);
 });
 
 editTermsPageReturnToStartButton.addEventListener("click", () => {
