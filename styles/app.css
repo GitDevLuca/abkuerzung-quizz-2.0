@@ -240,14 +240,18 @@ input:focus, textarea:focus, input:hover, textarea:hover {
 
 #div_inp_filter {
     margin-left: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-#lab_inp_filter {
+.margin_right {
     margin-right: 10px;
 }
 
-#inp_filter {
+#lab_inp_filter {
     margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .div_terms {
@@ -486,7 +490,7 @@ td, th {
 
 #language_select {
     position: fixed;
-    bottom: 20px;
+    bottom: 120px;
     left: 50%;
     transform: translateX(-50%);
     padding: 5px 10px;
